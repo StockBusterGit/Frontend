@@ -1,7 +1,6 @@
-export default function Home() {
-  return (
-    <>
-    <h1>Home</h1>
-    </>
-  );
+import {useTranslations} from 'next-intl';
+
+export default function HomePage() {
+  const t = useTranslations('HomePage');
+  return <h1>{t('title')}</h1>;
 }
