@@ -14,6 +14,10 @@ const config: Config = {
         tertiary: "#DBA75F",
         tertiaryDark: "#B07A50",
       },
+      fontFamily: {
+        'sans': ['montserrat', 'sans-serif'],
+        'serif': ['Protest Strike', 'serif'],
+      }
     },
   },
   plugins: [],

@@ -1,5 +1,13 @@
 {
   "HomePage": {
     "title": "Hello world!"
-  }
+  },
+    "Components": {
+        "title": "Component",
+      "order_by": "Order by",
+      "Name": "Name",
+      "Growing stock": "Growing stock",
+      "Descending stock": "Descending stock",
+      "Search": "Search"
+    }
 }

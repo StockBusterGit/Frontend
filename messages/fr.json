@@ -1,5 +1,13 @@
 {
   "HomePage": {
     "title": "Bonjour Baguette!"
+  },
+  "Components": {
+    "title": "Composant",
+    "order_by": "Trier",
+    "Name": "Nom",
+    "Growing stock": "Stock croissant",
+    "Descending stock": "Stock décroissant",
+    "Search": "Rechercher"
   }
 }
