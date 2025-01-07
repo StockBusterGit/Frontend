@@ -1,12 +1,23 @@
-import MyIcon from '../public/icons/ic_round-search.svg'
-import {useTranslations} from "next-intl";
+import MyIcon from '../public/icons/ic_round-search.svg';
+import { useTranslations } from "next-intl";
 
-export default function Searchbar() {
+interface SearchbarProps {
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value: string;
+}
+
+export default function Searchbar({  onChange, value }: SearchbarProps) {
     const t = useTranslations('Components');
-    return(
+    return (
         <div className="bg-tertiary bg-opacity-40 w-[219px] flex py-1 px-4 rounded-[5px]">
-            <MyIcon className="text-primary"/>
-            <input type="text" placeholder={t('Search')} className="bg-tertiary bg-opacity-0 w-full text-primary placeholder:text-primary font-semibold text-center text-sm hover:border-0 "/>
+            <MyIcon className="text-primary" />
+            <input
+                type="text"
+                placeholder={t('Search')}
+                value={value}
+                onChange={onChange}
+                className="bg-tertiary bg-opacity-0 w-full text-primary placeholder:text-primary font-semibold text-center text-sm hover:border-0 "
+            />
         </div>
-    )
+    );
 }
