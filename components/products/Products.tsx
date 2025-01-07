@@ -35,6 +35,8 @@ export default function Products() {
                 if (filter.orderBy === t('Name')) return a.name.localeCompare(b.name);
                 if (filter.orderBy === t('Growing stock')) return b.stock - a.stock;
                 if (filter.orderBy === t('Descending stock')) return a.stock - b.stock;
+                if (filter.orderBy === t('Price descending')) return a.price - b.price;
+                if (filter.orderBy === t('Price ascending')) return b.price - a.price;
                 return 0;
             });
         }

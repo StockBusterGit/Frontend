@@ -17,7 +17,7 @@ const FilterInput: React.FC<ListSelectProps> = ({ onSelect }) => {
     };
 
 
-    const options = [t('Name'), t("Growing stock"), t("Descending stock")];
+    const options = [t('Name'), t("Growing stock"), t("Descending stock"), t('Price descending'), t('Price ascending')];
 
     return (
         <div >

@@ -37,7 +37,6 @@ export default function Filter() {
             <Searchbar onChange={handleSearchChange} value={searchText} />
             <div className={'flex flex-nowrap justify-center items-center space-x-9 '}>
                 <FilterInput onSelect={handleSelect} />
-                {orderBy}
                 <CheckboxInput label={'En rupture'} onChange={handleOutOfStockChange} checked={outOfStock} />
                 <ButtonLink link={'/products/add'} label={t('Create')} />
             </div>
