@@ -13,6 +13,7 @@ const config: Config = {
         secondary: "#DBA75F",
         tertiary: "#DBA75F",
         tertiaryDark: "#B07A50",
+        tertiaryLight: "#F0D9BA",
       },
       fontFamily: {
         'sans': ['montserrat', 'sans-serif'],
