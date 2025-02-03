@@ -6,7 +6,7 @@ export default function ProductAddComponents() {
 
 
     return (
-        <div className={"flex"}>
+        <div className={"flex h-full w-full"}>
             <ProfilePicture  />
             <FormEdit label={''} entreprise={''} format={''} id={2} description={''} price={2} stock={5} stockMaximum={200}  />
         </div>

@@ -6,10 +6,8 @@ export default function ProductsPage() {
     return (
         <div>
             <h1 className={'title'} >{t('Create products')}</h1>
-            <div className={"flex"}>
-
+            <div className={"flex w-full mt-12"}>
                    <ProductAddComponents />
-
             </div>
         </div>
     );
