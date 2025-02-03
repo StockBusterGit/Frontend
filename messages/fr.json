@@ -40,6 +40,20 @@
         "Checkout": "Payer",
         "Empty cart": "Vider le panier",
         "Create products": "Créer des produits",
-        "Id": "Id"
+        "Id": "Id",
+        "Label": "Libellé",
+        "Format": "Format",
+        "Edit": "Modifier",
+        "Status": "Statut",
+        "In stock": "En stock",
+        "Out of stock": "En rupture de stock",
+        "In order": "En commande",
+        "Price ascending": "Prix croissant",
+        "Delete": "Supprimer",
+        "Update": "Mettre à jour",
+        "Create": "Créer",
+        "Submit": "Soumettre",
+      "Entreprise": "Enterprise",
+        "Ref": "Réf"
     }
 }

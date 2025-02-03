@@ -39,6 +39,20 @@
         "Checkout": "Checkout",
         "Empty cart": "Empty cart",
         "Create products": "Create products",
-        "Id": "Id"
+        "Id": "Id",
+        "Label": "Label",
+        "Format": "Format",
+        "Edit": "Edit",
+        "Status": "Status",
+        "In stock": "In stock",
+        "Out of stock": "Out of stock",
+        "In order": "In order",
+        "Price ascending": "Price ascending",
+        "Delete": "Delete",
+        "Update": "Update",
+        "Create": "Create",
+        "Submit": "Submit",
+        "Entreprise": "Enterprise",
+        "Ref": "Ref"
     }
 }

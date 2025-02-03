@@ -1,18 +1,20 @@
 import React from 'react';
 import Link from 'next/link';
+import DeleteIcon from '../../public/icons/delete_icon.svg';
 
-interface ButtonProps {
+interface DeleteButtonProps {
     label?: string;
     link?: string;
     className?: string;
 }
 
-export default function ButtonLink({ label = "Default Label", link = "/", className = "" }: ButtonProps) {
-    const buttonClasses = `bg-tertiary text-primary bg-opacity-40 h-[32px] text-sm font-semibold py-1.5 text-primary px-3 rounded-md ${className}`;
+export default function DeleteButton({ label = "Default Label", link = "/", className = "" }: DeleteButtonProps) {
+    const buttonClasses = `flex items-center justify-center ${className}`;
 
     if (link) {
         return (
             <Link href={link} className={buttonClasses}>
+                <DeleteIcon className="text-primary mr-2 ml-6"/>
                 {label}
             </Link>
         );

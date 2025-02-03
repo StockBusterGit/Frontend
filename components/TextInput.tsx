@@ -1,14 +1,15 @@
 import React from "react";
 
 interface TextInputProps {
-    onChange: (value: string) => void;
+    onChange: (value: string ) => void;
     label?: string;
     className?: string;
     placeholder?: string;
+    value?: string;
 }
 
 const TextInput: React.FC<TextInputProps>  = ({ onChange, label, className, placeholder }) => {
-    const [value, setValue] = React.useState<string>('');
+    const [value, setValue] = React.useState<string | number>('');
 
     const handleChange= (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;

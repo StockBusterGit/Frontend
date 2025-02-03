@@ -17,3 +17,9 @@
   }
 }
 */
+
+@layer components {
+    .title {
+        @apply font-sans font-semibold text-2xl
+    }
+}
