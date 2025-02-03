@@ -46,14 +46,14 @@ export default function FormEdit({ id, stock, stockMaximum, format, entreprise, 
     };
 
     return (
-        <form onSubmit={handleSubmit} className="product-form">
+        <form onSubmit={handleSubmit} className="product-form w-1/2 ">
             <p>{t('Ref')} : {id}</p>
-            <TextInput onChange={setLabelText} className="" label={t('Label')} value={labelText}  />
-            <TextInput onChange={setDescriptionText} className="" label={t('Description')} value={descriptionText} />
-            <CounterInput initialCount={priceValue} onChange={setPriceValue} />
-            <CounterInput initialCount={stockValue} onChange={setStockValue} max={stockMaximum}   />
+            <TextInput onChange={setLabelText} className="mt-3" label={t('Label')} value={labelText}  />
+            <TextInput onChange={setDescriptionText} className="mt-3" label={t('Description')} value={descriptionText} />
+            <CounterInput initialCount={priceValue} onChange={setPriceValue} label={"test"} />
+            <CounterInput initialCount={stockValue} onChange={setStockValue} max={stockMaximum} label={"test"}   />
             <TextInput onChange={setEntrepriseValue} className="" label={t('Entreprise')} value={entrepriseValue} />
-            <button type="submit" className="submit-button">{t('Submit')}</button>
+            <button type="submit" className="submit-button bg-tertiary text-primary bg-opacity-40 h-[32px] text-sm font-semibold py-1.5 text-primary px-3 rounded-md">{t('Submit')}</button>
         </form>
     );
 }
