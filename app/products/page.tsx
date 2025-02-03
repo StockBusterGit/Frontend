@@ -9,7 +9,7 @@ export default function ProductsPage() {
 
   return (
     <div>
-        <h1 className={'font-sans font-semibold text-2xl'}>{t('title')}</h1>
+        <h1 className={'title'}>{t('title')}</h1>
         <Products />
     </div>
   );
