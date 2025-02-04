@@ -54,6 +54,9 @@
         "Create": "Créer",
         "Submit": "Soumettre",
       "Entreprise": "Enterprise",
-        "Ref": "Réf"
+        "Ref": "Réf",
+      "Unit price": "Prix unitaire",
+      "Stock maximum": "Stock maximum",
+      "Stock minimum": "Stock minimum"
     }
 }

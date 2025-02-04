@@ -53,6 +53,9 @@
         "Create": "Create",
         "Submit": "Submit",
         "Entreprise": "Enterprise",
-        "Ref": "Ref"
+        "Ref": "Ref",
+        "Unit price": "Unit price",
+        "Stock maximum": "Stock maximum",
+        "Stock minimum": "Stock minimum"
     }
 }
