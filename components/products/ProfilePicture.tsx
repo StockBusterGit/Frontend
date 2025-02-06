@@ -29,7 +29,7 @@ export default function ProfilePicture({ src, onChange, className }: ProfilePict
 
     return (
         <div className={`w-1/2 h-full  ${className || ''}`}>
-            <Image src={preview} width={300} height={300} className={'w-3/4 h-[300px]'} alt="Profile Picture" />
+            <Image src={preview} width={300} height={300} className={'w-3/4 h-[300px] object-cover'} alt="Profile Picture" />
             <div className="flex mt-4">
                 <label className="bg-tertiary text-primary font-semibold px-4 py-2 rounded cursor-pointer">
                     {t('Edit')}

@@ -12,49 +12,55 @@ interface CounterInputProps {
 }
 
 const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, max, onChange, label, className, showMaxInLabel, integer = false }) => {
-    const [count, setCount] = useState<number>(initialCount);
+    const [inputValue, setInputValue] = useState<string>(initialCount.toString());
 
     useEffect(() => {
-        onChange(count);
-    }, [count, onChange]);
+        onChange(parseFloat(inputValue) || 0);
+    }, [inputValue, onChange]);
 
     useEffect(() => {
-        if (max !== undefined && count > max) {
-            setCount(max);
+        const numericValue = parseFloat(inputValue) || 0;
+        if (max !== undefined && numericValue > max) {
+            setInputValue(max.toString());
         }
-    }, [max, count]);
+    }, [max, inputValue]);
 
     const handleDecrement = () => {
-        if (count > min) {
-            setCount(prev => prev - 1);
+        let value = parseFloat(inputValue) || 0;
+        if (value > min) {
+            value -= 1;
+            setInputValue(integer ? Math.trunc(value).toString() : (Math.trunc(value * 100) / 100).toString());
         }
     };
 
     const handleIncrement = () => {
-        if (max === undefined || count < max) {
-            setCount(prev => prev + 1);
+        let value = parseFloat(inputValue) || 0;
+        if (max === undefined || value < max) {
+            value += 1;
+            setInputValue(integer ? Math.trunc(value).toString() : (Math.trunc(value * 100) / 100).toString());
         }
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = event.target.value.replace(',', '.');
-        const value = parseFloat(inputValue);
+        const newValue = event.target.value.replace(',', '.'); // Convert ',' to '.'
 
-        if (isNaN(value)) return;
-
-        if (integer) {
-            setCount(Math.trunc(value));
-        } else {
-            setCount(Math.trunc(value * 100) / 100);
+        // Ensure only valid numeric input
+        if (/^\d*\.?\d*$/.test(newValue) || newValue === '') {
+            setInputValue(newValue);
         }
     };
 
     const handleBlur = () => {
-        if (count < min) {
-            setCount(min);
-        } else if (max !== undefined && count > max) {
-            setCount(max);
+        let numericValue = parseFloat(inputValue);
+        if (isNaN(numericValue)) {
+            numericValue = min; // Default to min if input is empty or invalid
+        } else if (numericValue < min) {
+            numericValue = min;
+        } else if (max !== undefined && numericValue > max) {
+            numericValue = max;
         }
+
+        setInputValue(integer ? Math.trunc(numericValue).toString() : (Math.trunc(numericValue * 100) / 100).toString());
     };
 
     return (
@@ -69,8 +75,8 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
                     -
                 </button>
                 <input
-                    type="number"
-                    value={count}
+                    type="text"
+                    value={inputValue}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className="w-16 text-center bg-transparent text-primary font-semibold counter-input-hide focus:outline-none"
