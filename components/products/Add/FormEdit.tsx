@@ -64,6 +64,12 @@ export default function FormEdit({id, label, description, price, stock, stockMax
         return Object.keys(newErrors).length === 0;
     };
 
+    useEffect(() => {
+        if (stockValue > stockMax) {
+            setStockValue(stockMax);
+        }
+    }, [stockValue, stockMax]);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!validateForm()) return;
@@ -105,13 +111,13 @@ export default function FormEdit({id, label, description, price, stock, stockMax
 
             <div className="flex gap-4 my-4">
                 <div>
-                    <CounterInput initialCount={stockValue} onChange={setStockValue} max={stockMax} showMaxInLabel={true} label={t('Stock')} />
+                    <CounterInput initialCount={stockValue} onChange={setStockValue} max={stockMax} showMaxInLabel={true} label={t('Stock')} integer={true} />
                 </div>
                 <div>
-                    <CounterInput initialCount={stockMin} onChange={setStockMin} max={stockMax} label={t('Stock minimum')} />
+                    <CounterInput initialCount={stockMin} onChange={setStockMin} max={stockMax} label={t('Stock minimum')} integer={true} />
                 </div>
                 <div>
-                    <CounterInput initialCount={stockMax} onChange={setStockMax} label={t('Stock maximum')} />
+                    <CounterInput initialCount={stockMax} onChange={setStockMax} label={t('Stock maximum')} integer={true} />
                 </div>
             </div>
             {errors.stock && <p className="text-red-500 text-sm mt-1">{errors.stock}</p>}

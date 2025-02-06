@@ -8,14 +8,21 @@ interface CounterInputProps {
     label?: string;
     className?: string;
     showMaxInLabel?: boolean;
+    integer?: boolean;
 }
 
-const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, max, onChange, label, className, showMaxInLabel }) => {
+const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, max, onChange, label, className, showMaxInLabel, integer = false }) => {
     const [count, setCount] = useState<number>(initialCount);
 
     useEffect(() => {
         onChange(count);
     }, [count, onChange]);
+
+    useEffect(() => {
+        if (max !== undefined && count > max) {
+            setCount(max);
+        }
+    }, [max, count]);
 
     const handleDecrement = () => {
         if (count > min) {
@@ -30,12 +37,15 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        if (/^\d*$/.test(value)) {
-            let newValue = value === "" ? min : parseInt(value, 10);
-            if (newValue < min) newValue = min;
-            if (max !== undefined && newValue > max) newValue = max;
-            setCount(newValue);
+        const inputValue = event.target.value.replace(',', '.');
+        const value = parseFloat(inputValue);
+
+        if (isNaN(value)) return;
+
+        if (integer) {
+            setCount(Math.trunc(value));
+        } else {
+            setCount(Math.trunc(value * 100) / 100);
         }
     };
 
@@ -59,11 +69,11 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
                     -
                 </button>
                 <input
-                    type="text"
+                    type="number"
                     value={count}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className="w-16 text-center bg-transparent text-primary font-semibold focus:outline-none"
+                    className="w-16 text-center bg-transparent text-primary font-semibold counter-input-hide focus:outline-none"
                 />
                 <button
                     type="button"
