@@ -66,6 +66,19 @@
         "Minimum stock must be less than or equal to maximum stock": "Le stock minimum doit être inférieur ou égal au stock maximum",
         "Please select a status" : "Veuillez sélectionner un statut",
         "Please select a format" : "Veuillez sélectionner un format",
-        "Please select a company" : "Veuillez sélectionner une entreprise"
+        "Please select a company" : "Veuillez sélectionner une entreprise",
+        "loading": "Chargement...",
+      "errors" : {
+          "404": "Page not found",
+          "500": "Internal server error",
+          "labelRequired": "Le label est requis",
+          "selectStatus": "Veuillez sélectionner un statut",
+          "selectCompany": "Veuillez sélectionner une entreprise",
+          "selectFormat": "Veuillez sélectionner un format",
+          "stockRangeInvalid": "Le stock minimum doit être inférieur ou égal au stock maximum",
+          "pricePositive": "Le prix doit être positif",
+          "descriptionRequired": "La description est requise"
+
+        }
     }
 }

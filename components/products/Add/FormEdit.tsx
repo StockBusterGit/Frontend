@@ -105,7 +105,7 @@ export default function FormEdit({id, label, description, price, stock, stockMax
 
             <div className="flex gap-4 my-4">
                 <div>
-                    <CounterInput initialCount={stockValue} onChange={setStockValue} max={stockMax} label={t('Stock')} />
+                    <CounterInput initialCount={stockValue} onChange={setStockValue} max={stockMax} showMaxInLabel={true} label={t('Stock')} />
                 </div>
                 <div>
                     <CounterInput initialCount={stockMin} onChange={setStockMin} max={stockMax} label={t('Stock minimum')} />
