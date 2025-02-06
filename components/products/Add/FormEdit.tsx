@@ -1,10 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import TextInput from '@/components/TextInput';
 import CounterInput from "@/components/CounterInput";
 import SelectInput from "@/components/SelectInput";
 import { isValidPrice, isValidStockRange, isValidText, isValidSelection } from '@/utils/formValidation';
+import {ProductDataSend} from "@/utils/Interface";
 
 interface FormEditProps {
     id?: number;
@@ -14,74 +15,97 @@ interface FormEditProps {
     stock?: number;
     stockMaximum?: number;
     stockMinimum?: number;
-    format: string[];
-    status: string[];
-    entreprise: string[];
-    onSubmit?: (data: never) => void;
+    format?: string[];
+    status?: string[];
+    entreprise?: string[];
+    onSubmit: (productData: ProductDataSend) => void;
 }
 
-export default function FormEdit({ id, stock, stockMaximum, stockMinimum, format, entreprise, status, price, label, description }: FormEditProps) {
+
+export default function FormEdit({id, label, description, price, stock, stockMaximum, stockMinimum, format, status, entreprise, onSubmit }: FormEditProps) {
     const t = useTranslations('Product');
 
-    const [labelText, setLabelText] = useState(label || '');
-    const [descriptionText, setDescriptionText] = useState(description || '');
-    const [priceValue, setPriceValue] = useState(price || 0);
-    const [stockValue, setStockValue] = useState(stock || 0);
-    const [stockMin, setStockMin] = useState(stockMinimum || 0);
-    const [stockMax, setStockMax] = useState(stockMaximum || 100);
-    const [entrepriseValue, setEntrepriseValue] = useState('');
-    const [formatValue, setFormatValue] = useState('');
-    const [statusValue, setStatusValue] = useState('');
+    const [labelText, setLabelText] = useState<string>(label || '');
+    const [descriptionText, setDescriptionText] = useState<string>(description || '');
+    const [priceValue, setPriceValue] = useState<number>(price || 0);
+    const [stockValue, setStockValue] = useState<number>(stock || 0);
+    const [stockMin, setStockMin] = useState<number>(stockMinimum || 0);
+    const [stockMax, setStockMax] = useState<number>(stockMaximum || 100);
+    const [formatValue, setFormatValue] = useState<string>(format?.[0] || '');
+    const [statusValue, setStatusValue] = useState<string>(status?.[0] || '');
+    const [entrepriseValue, setEntrepriseValue] = useState<string>(entreprise?.[0] || '');
 
-    const [errors, setErrors] = useState<{ [key: string]: string | null }>({});
+    const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const validateForm = () => {
-        const newErrors: { [key: string]: string | null } = {};
-        if (!isValidText(labelText)) newErrors.label = t('Label is required');
-        if (!isValidText(descriptionText)) newErrors.description = t('Description is required');
-        if (!isValidPrice(priceValue)) newErrors.price = t('Price must be positive');
-        if (!isValidStockRange(stockMin, stockMax)) newErrors.stock = t('Minimum stock must be less than or equal to maximum stock');
-        if (!isValidSelection(statusValue)) newErrors.status = t('Please select a status');
-        if (!isValidSelection(formatValue)) newErrors.format = t('Please select a format');
-        if (!isValidSelection(entrepriseValue)) newErrors.entreprise = t('Please select a company');
+    useEffect(() => {
+        setLabelText(label || '');
+        setDescriptionText(description || '');
+        setPriceValue(price || 0);
+        setStockValue(stock || 0);
+        setStockMin(stockMinimum || 0);
+        setStockMax(stockMaximum || 100);
+        setFormatValue(format?.[0] || '');
+        setStatusValue(status?.[0] || '');
+        setEntrepriseValue(entreprise?.[0] || '');
+    }, [id, label, description, price, stock, stockMinimum, stockMaximum, format, status, entreprise]);
+
+    const validateForm = (): boolean => {
+        const newErrors: Record<string, string> = {};
+
+        if (!isValidText(labelText)) newErrors.label = t('errors.labelRequired');
+        if (!isValidText(descriptionText)) newErrors.description = t('errors.descriptionRequired');
+        if (!isValidPrice(priceValue)) newErrors.price = t('errors.pricePositive');
+        if (!isValidStockRange(stockMin, stockMax)) newErrors.stock = t('errors.stockRangeInvalid');
+        if (!isValidSelection(statusValue)) newErrors.status = t('errors.selectStatus');
+        if (!isValidSelection(formatValue)) newErrors.format = t('errors.selectFormat');
+        if (!isValidSelection(entrepriseValue)) newErrors.entreprise = t('errors.selectCompany');
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!validateForm()) return;
 
-        console.log("Valid data:", {
-            stockMin, stockMax, stockValue, priceValue, descriptionText, labelText, entrepriseValue, formatValue, statusValue
-        });
+        const productData: ProductDataSend = {
+            id,
+            label: labelText,
+            description: descriptionText,
+            price: priceValue,
+            stock: stockValue,
+            stockMinimum: stockMin,
+            stockMaximum: stockMax,
+            format: formatValue,
+            status: statusValue,
+            entreprise: entrepriseValue,
+        };
 
-        // @TODO: Add API call to save data
+        onSubmit(productData);
     };
 
     return (
         <form onSubmit={handleSubmit} className="product-form w-1/2 flex flex-col gap-y-4">
-            {id && <p> {t('Ref')} : {id}</p>}
+            {id && <p className="text-gray-500">{t('Ref')} : {id}</p>}
 
             <div>
-                <TextInput onChange={setLabelText} className="mt-3" label={t('Label')} value={labelText} />
+                <TextInput label={t('Label')} value={labelText} onChange={setLabelText} />
                 {errors.label && <p className="text-red-500 text-sm mt-1">{errors.label}</p>}
             </div>
 
             <div>
-                <TextInput onChange={setDescriptionText}  label={t('Description')} value={descriptionText} />
+                <TextInput label={t('Description')} value={descriptionText} onChange={setDescriptionText} />
                 {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
             </div>
 
             <div>
-                <CounterInput initialCount={priceValue}  onChange={setPriceValue} label={t('Unit price')} />
+                <CounterInput label={t('Unit price')} initialCount={priceValue} onChange={setPriceValue} />
                 {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
             </div>
 
             <div className="flex gap-4 my-4">
                 <div>
-                    <CounterInput initialCount={stockValue} onChange={setStockValue} max={stockMax} label={"Stock"} showMaxInLabel={true} />
+                    <CounterInput initialCount={stockValue} onChange={setStockValue} max={stockMax} label={t('Stock')} />
                 </div>
                 <div>
                     <CounterInput initialCount={stockMin} onChange={setStockMin} max={stockMax} label={t('Stock minimum')} />
@@ -93,21 +117,21 @@ export default function FormEdit({ id, stock, stockMaximum, stockMinimum, format
             {errors.stock && <p className="text-red-500 text-sm mt-1">{errors.stock}</p>}
 
             <div>
-                <SelectInput onSelect={setStatusValue} options={status} label={t('Status')}  />
+                <SelectInput onSelect={setStatusValue} options={status || []} label={t('Status')} />
                 {errors.status && <p className="text-red-500 text-sm mt-1">{errors.status}</p>}
             </div>
 
             <div>
-                <SelectInput onSelect={setFormatValue} options={format} label={t('Format')}  />
+                <SelectInput onSelect={setFormatValue} options={format || []} label={t('Format')} />
                 {errors.format && <p className="text-red-500 text-sm mt-1">{errors.format}</p>}
             </div>
 
             <div>
-                <SelectInput onSelect={setEntrepriseValue} options={entreprise} label={t('Entreprise')}  />
+                <SelectInput onSelect={setEntrepriseValue} options={entreprise || []} label={t('Entreprise')} />
                 {errors.entreprise && <p className="text-red-500 text-sm mt-1">{errors.entreprise}</p>}
             </div>
 
-            <button type="submit" className="submit-button bg-secondary h-[43px] w-[168px] text-sm font-semibold py-1.5 text-primary px-8 rounded-md mt-7 hover:bg-opacity-40 transition-all duration-300">
+            <button type="submit" className="bg-secondary h-[43px] w-[168px] text-sm font-semibold py-1.5 text-primary px-8 rounded-md mt-7 hover:bg-opacity-40 transition-all duration-300">
                 {t('Submit')}
             </button>
         </form>

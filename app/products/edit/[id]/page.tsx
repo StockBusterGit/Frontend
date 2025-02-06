@@ -3,19 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import FormEdit from '@/components/products/Add/FormEdit';
-
-interface Product {
-    id?: number;
-    name?: string;
-    description?: string;
-    price?: number;
-    stock?: number;
-    stockMax?: number;
-    stockMin?: number;
-    format?: string[];
-    status?: string;
-    entreprise?: string;
-}
+import { ProductData, ProductDataSend } from "@/utils/Interface";
 
 export default function EditProductPage() {
     const t = useTranslations('Product');
@@ -23,7 +11,7 @@ export default function EditProductPage() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [product, setProduct] = useState<Product | null>(null);
+    const [product, setProduct] = useState<ProductData | null>(null);
 
     useEffect(() => {
         async function fetchProduct() {
@@ -31,10 +19,10 @@ export default function EditProductPage() {
             try {
                 const response = await fetch(`/api/products/${id}`);
                 if (!response.ok) throw new Error('Failed to fetch product');
-                const data: Product = await response.json();
+                const data: ProductData = await response.json();
                 setProduct(data);
             } catch (err) {
-                setError('Error fetching product');
+                setError(err instanceof Error ? err.message : 'Error fetching product');
             } finally {
                 setLoading(false);
             }
@@ -42,7 +30,7 @@ export default function EditProductPage() {
         fetchProduct();
     }, [id]);
 
-    const handleFormSubmit = async (updatedProduct: Product) => {
+    const handleFormSubmit = async (updatedProduct: ProductDataSend) => {
         try {
             if (!id) return;
 
@@ -56,7 +44,7 @@ export default function EditProductPage() {
 
             router.push('/');
         } catch (err) {
-            setError('Error updating product');
+            setError(err instanceof Error ? err.message : 'Error updating product');
         }
     };
 
