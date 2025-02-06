@@ -18,19 +18,19 @@ export default function ProductAddComponents() {
 
     const handleFormSubmit = async (productData: ProductDataSend) => {
         console.log("Submitting product:", productData);
-        try {
-            const response = await fetch(`/api/products`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(productData),
-            });
-
-            if (!response.ok) throw new Error('Failed to create product');
-
-            console.log("Product added successfully!");
-        } catch (error) {
-            console.error("Error adding product:", error);
-        }
+        // try {
+        //     const response = await fetch(`/api/products`, {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify(productData),
+        //     });
+        //
+        //     if (!response.ok) throw new Error('Failed to create product');
+        //
+        //     console.log("Product added successfully!");
+        // } catch (error) {
+        //     console.error("Error adding product:", error);
+        // }
     };
 
 

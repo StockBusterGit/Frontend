@@ -6,6 +6,8 @@ import CounterInput from "@/components/CounterInput";
 import SelectInput from "@/components/SelectInput";
 import { isValidPrice, isValidStockRange, isValidText, isValidSelection } from '@/utils/formValidation';
 import {ProductDataSend} from "@/utils/Interface";
+import Toaster from "@/components/Toaster";
+import {redirect} from "next/navigation";
 
 interface FormEditProps {
     id?: number;
@@ -34,6 +36,7 @@ export default function FormEdit({id, label, description, price, stock, stockMax
     const [formatValue, setFormatValue] = useState<string>(format?.[0] || '');
     const [statusValue, setStatusValue] = useState<string>(status?.[0] || '');
     const [entrepriseValue, setEntrepriseValue] = useState<string>(entreprise?.[0] || '');
+    const [showToaster, setShowToaster] = useState<boolean>(false);
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -44,14 +47,14 @@ export default function FormEdit({id, label, description, price, stock, stockMax
         setStockValue(stock || 0);
         setStockMin(stockMinimum || 0);
         setStockMax(stockMaximum || 100);
-        setFormatValue(format?.[0] || '');
-        setStatusValue(status?.[0] || '');
-        setEntrepriseValue(entreprise?.[0] || '');
+        setFormatValue( '');
+        setStatusValue('');
+        setEntrepriseValue( '');
     }, [id, label, description, price, stock, stockMinimum, stockMaximum, format, status, entreprise]);
 
     const validateForm = (): boolean => {
         const newErrors: Record<string, string> = {};
-
+        console.log(entrepriseValue);
         if (!isValidText(labelText)) newErrors.label = t('errors.labelRequired');
         if (!isValidText(descriptionText)) newErrors.description = t('errors.descriptionRequired');
         if (!isValidPrice(priceValue)) newErrors.price = t('errors.pricePositive');
@@ -62,6 +65,8 @@ export default function FormEdit({id, label, description, price, stock, stockMax
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
+
+
     };
 
     useEffect(() => {
@@ -88,9 +93,16 @@ export default function FormEdit({id, label, description, price, stock, stockMax
         };
 
         onSubmit(productData);
+        setShowToaster(true);
+
+        setTimeout(() => {
+            redirect('/products');
+        }, 2000);
     };
 
     return (
+        <>
+        {showToaster && <Toaster message={t('Product saved successfully!')} onClose={() => setShowToaster(false)} />}
         <form onSubmit={handleSubmit} className="product-form w-1/2 flex flex-col gap-y-4">
             {id && <p className="text-gray-500">{t('Ref')} : {id}</p>}
 
@@ -141,5 +153,6 @@ export default function FormEdit({id, label, description, price, stock, stockMax
                 {t('Submit')}
             </button>
         </form>
+        </>
     );
 }

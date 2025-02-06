@@ -15,6 +15,8 @@ export default function Filter() {
     const [outOfStock, setOutOfStock] = useState(filter.OutOfStock);
     const t = useTranslations('Components');
 
+    console.log(orderBy);
+
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchText(e.target.value);
