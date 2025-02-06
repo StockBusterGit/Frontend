@@ -6,6 +6,9 @@ interface StatusDisplayProps {
 }
 
 export default function StatusDisplay({ IsOutOfStock, status }: StatusDisplayProps) {
+
+    //@TODO if status is set in Database change this component to use the status from the database
+
     let statusColor = 'text-green-500';
     const t = useTranslations('Components');
     if (IsOutOfStock) {

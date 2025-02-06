@@ -7,9 +7,10 @@ interface CounterInputProps {
     onChange: (value: number) => void;
     label?: string;
     className?: string;
+    showMaxInLabel?: boolean;
 }
 
-const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, max, onChange, label, className }) => {
+const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, max, onChange, label, className, showMaxInLabel }) => {
     const [count, setCount] = useState<number>(initialCount);
 
     useEffect(() => {
@@ -23,7 +24,7 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
     };
 
     const handleIncrement = () => {
-        if (max === undefined || count < max) { // Ne bloque pas si max est undefined
+        if (max === undefined || count < max) {
             setCount(prev => prev + 1);
         }
     };
@@ -34,7 +35,6 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
             let newValue = value === "" ? min : parseInt(value, 10);
             if (newValue < min) newValue = min;
             if (max !== undefined && newValue > max) newValue = max;
-
             setCount(newValue);
         }
     };
@@ -49,9 +49,10 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
 
     return (
         <div className={className}>
-            {label && <label className="font-semibold mb-2 mt-2">{label}</label>}
+            {label && <label className="font-semibold mb-2 mt-2">{label} {showMaxInLabel && (<span>(Max. {max})</span>)}</label>}
             <div className="flex items-center bg-tertiary bg-opacity-40 rounded-md w-36">
                 <button
+                    type="button"
                     onClick={handleDecrement}
                     className="px-4 py-2 text-lg font-semibold text-primary hover:bg-tertiary rounded focus:outline-none"
                 >
@@ -65,6 +66,7 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
                     className="w-16 text-center bg-transparent text-primary font-semibold focus:outline-none"
                 />
                 <button
+                    type="button"
                     onClick={handleIncrement}
                     className="px-4 py-2 text-lg font-semibold text-primary hover:bg-tertiary rounded focus:outline-none"
                 >

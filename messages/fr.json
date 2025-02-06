@@ -18,6 +18,7 @@
     "Update": "Mettre à jour",
     "Delete": "Supprimer",
     "Add": "Ajouter",
+    "Edit": "Modifier",
     "Format": "Format",
     "Status": "Statut",
     "In stock": "En stock",
@@ -53,10 +54,18 @@
         "Update": "Mettre à jour",
         "Create": "Créer",
         "Submit": "Soumettre",
-      "Entreprise": "Enterprise",
+        "Entreprise": "Enterprise",
         "Ref": "Réf",
-      "Unit price": "Prix unitaire",
-      "Stock maximum": "Stock maximum",
-      "Stock minimum": "Stock minimum"
+        "Unit price": "Prix unitaire",
+        "Stock maximum": "Stock maximum",
+        "Stock minimum": "Stock minimum",
+        "Select an option": "Sélectionner une option",
+        "Label is required": "Le libellé est requis",
+        "Description is required": "La description est requise",
+        "Price must be positive": "Le prix doit être positif",
+        "Minimum stock must be less than or equal to maximum stock": "Le stock minimum doit être inférieur ou égal au stock maximum",
+        "Please select a status" : "Veuillez sélectionner un statut",
+        "Please select a format" : "Veuillez sélectionner un format",
+        "Please select a company" : "Veuillez sélectionner une entreprise"
     }
 }

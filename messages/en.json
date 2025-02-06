@@ -10,6 +10,7 @@
       "Descending stock": "Descending stock",
       "Search": "Search",
       "Id": "Id",
+      "Edit": "Edit",
       "Label": "Label",
       "Stock": "Stock",
       "Price": "Price",
@@ -56,6 +57,14 @@
         "Ref": "Ref",
         "Unit price": "Unit price",
         "Stock maximum": "Stock maximum",
-        "Stock minimum": "Stock minimum"
+        "Stock minimum": "Stock minimum",
+        "Select an option": "Select an option",
+        "Label is required": "Label is required",
+        "Description is required": "Description is required",
+        "Price must be positive": "Price must be positive",
+        "Minimum stock must be less than or equal to maximum stock": "Minimum stock must be less than or equal to maximum stock",
+        "Please select a status" : "Please select a status",
+        "Please select a format" : "Please select a format",
+        "Please select a company" : "Please select a company"
     }
 }
