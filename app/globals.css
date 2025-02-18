@@ -17,3 +17,16 @@
   }
 }
 */
+
+@layer components {
+    .title {
+        @apply font-sans font-semibold text-2xl
+    }
+}
+
+
+.counter-input-hide::-webkit-outer-spin-button,
+.counter-input-hide::-webkit-inner-spin-button{
+    display: none;
+    margin: 0;
+}

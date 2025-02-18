@@ -7,7 +7,7 @@ interface ButtonProps {
     className?: string;
 }
 
-export default function Button({ label = "Default Label", link = "/", className = "" }: ButtonProps) {
+export default function ButtonLink({ label = "Default Label", link = "/", className = "" }: ButtonProps) {
     const buttonClasses = `bg-tertiary text-primary bg-opacity-40 h-[32px] text-sm font-semibold py-1.5 text-primary px-3 rounded-md ${className}`;
 
     if (link) {

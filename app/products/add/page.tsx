@@ -1,10 +1,14 @@
 import {useTranslations} from "next-intl";
+import ProductAddComponents from "@/components/products/Add/ProductAddComponents";
 
 export default function ProductsPage() {
     const t = useTranslations('Product');
     return (
         <div>
-            <h1>{t('Create products')}</h1>
+            <h1 className={'title'} >{t('Create products')}</h1>
+            <div className={"flex w-full mt-12"}>
+                   <ProductAddComponents />
+            </div>
         </div>
     );
 }
