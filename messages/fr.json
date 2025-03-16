@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "title": "Bonjour Baguette!"
+    "title": "Bienvenue"
   },
   "Components": {
     "title": "Composant",
@@ -83,5 +83,22 @@
           "descriptionRequired": "La description est requise"
 
         }
-    }
+    },
+  "Auth" : {
+    "Login Page" : "Page de connexion",
+    "Email" : "Email",
+    "Password" : "Mot de passe",
+    "Login": "Connexion",
+    "Logout": "Déconnexion",
+    "Register": "S'inscrire",
+    "Register Page": "Page d'inscription",
+    "Forgot Password": "Mot de passe oublié",
+    "Reset Password": "Réinitialiser le mot de passe",
+    "Username": "Nom d'utilisateur",
+    "Confirm Password": "Confirmer le mot de passe",
+    "Already registered?": "Déjà inscrit?",
+    "Not registered?": "Pas encore inscrit?",
+    "Remember me": "Se souvenir de moi",
+    "Sign in": "Se connecter"
+  }
 }

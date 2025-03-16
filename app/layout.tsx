@@ -4,6 +4,7 @@ import {getLocale, getMessages} from 'next-intl/server';
 import localFont from "next/font/local";
 import "./globals.css";
 import SideMenu from "@/components/SideMenu";
+import {AuthProvider} from "@/components/context/AuthContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,10 +40,12 @@ export default async function RootLayout(props: RootLayoutProps) {
 			className={`${geistSans.variable} ${geistMono.variable} antialiased flex min-h-screen`}
 		>
 		<NextIntlClientProvider messages={messages}>
-			<SideMenu/>
-			<main className="flex-1 px-10 py-6">
-				{children}
-			</main>
+			<AuthProvider>
+				<SideMenu/>
+				<main className="flex-1 px-10 py-6">
+					{children}
+				</main>
+			</AuthProvider>
 		</NextIntlClientProvider>
 		</body>
 		</html>

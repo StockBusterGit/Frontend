@@ -8,7 +8,6 @@ interface ListSelectProps {
     onSelect: (value: string) => void;
 }
 
-// Ne filtre pas encore les données
 
 const FilterInput: React.FC<ListSelectProps> = ({ onSelect }) => {
     const t = useTranslations('Components');
