@@ -1,7 +1,9 @@
 import CompanyCard from "@/components/company/CompanyCard";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 export default function CompaniesPages() {
 	return (
+		<ProtectedRoute>
 		<div>
 			<h1>Companies</h1>
 			<div className="flex flex-wrap gap-4 justify-between">
@@ -16,5 +18,6 @@ export default function CompaniesPages() {
 				}
 			</div>
 		</div>
+		</ProtectedRoute>
 	)
 }
