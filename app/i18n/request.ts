@@ -1,12 +1,24 @@
-import {getRequestConfig} from 'next-intl/server';
+import { getRequestConfig } from 'next-intl/server';
+import { headers } from 'next/headers';
+
+const supportedLocales = ['fr', 'en', 'de'];
 
 export default getRequestConfig(async () => {
-    // Provide a static locale, fetch a user setting,
-    // read from `cookies()`, `headers()`, etc.
-    const locale = 'fr';
+    const headerStore = await headers();
+    const savedLocale = headerStore.get('cookie')?.match(/NEXT_LOCALE=([a-zA-Z-]+)/)?.[1];
 
-    return {
-        locale,
-        messages: (await import(`../../messages/${locale}.json`)).default
-    };
+    const activeLocale: string = supportedLocales.includes(savedLocale || '')
+        ? savedLocale!
+        : 'fr';
+
+    try {
+        const messages = (await import(`../../messages/${activeLocale}.json`)).default;
+        return { locale: activeLocale, messages };
+    } catch (error) {
+        console.error(`Erreur chargement locale ${activeLocale}:`, error);
+        return {
+            locale: 'fr',
+            messages: (await import(`../../messages/fr.json`)).default
+        };
+    }
 });

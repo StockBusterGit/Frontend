@@ -9,14 +9,14 @@ interface SearchbarProps {
 export default function Searchbar({  onChange, value }: SearchbarProps) {
     const t = useTranslations('Components');
     return (
-        <div className="bg-tertiary bg-opacity-40 w-[219px] flex py-1 px-4 rounded-[5px]">
-            <MyIcon className="text-primary" />
+        <div className="bg-tertiary bg-opacity-40 w-[219px] flex py-1 px-4 rounded-[5px] dark:text-white">
+            <MyIcon className="text-primary dark:text-white" />
             <input
                 type="text"
                 placeholder={t('Search')}
                 value={value}
                 onChange={onChange}
-                className="bg-tertiary bg-opacity-0 w-full text-primary placeholder:text-primary font-semibold text-center text-sm hover:border-0 "
+                className="bg-tertiary bg-opacity-0 w-full text-primary placeholder:text-primary font-semibold text-center text-sm dark:placeholder:text-white hover:border-0  "
             />
         </div>
     );

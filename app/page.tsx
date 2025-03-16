@@ -1,15 +1,14 @@
 import {useTranslations} from 'next-intl';
-import {useAuth} from "@/components/context/AuthContext";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 
 export default function HomePage() {
   const t = useTranslations('HomePage');
-    const { user, login, logout } = useAuth();
-
   return (
       <>
-        <h1>{t('title')}</h1>
-
+          <ProtectedRoute>
+            <h1>{t('title')}</h1>
+          </ProtectedRoute>
       </>
   );
 }

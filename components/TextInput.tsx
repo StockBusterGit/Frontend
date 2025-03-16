@@ -24,7 +24,7 @@ const TextInput: React.FC<TextInputProps>  = ({ onChange, label, className, plac
         <input
             id="textInput"
             type="text"
-            className={`text-primary font-semibold  bg-tertiary bg-opacity-40 py-1.5 px-4 rounded-[4px] ' ${className || ''}' placeholder:text-primary`}
+            className={`text-primary font-semibold  bg-tertiary bg-opacity-40 py-1.5 px-4 rounded-[4px] ' ${className || ''}' placeholder:text-primary dark:text-white`}
             value={value}
             onChange={handleChange}
             placeholder={placeholder}

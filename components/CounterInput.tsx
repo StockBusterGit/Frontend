@@ -66,11 +66,11 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
     return (
         <div className={className}>
             {label && <label className="font-semibold mb-2 mt-2">{label} {showMaxInLabel && (<span>(Max. {max})</span>)}</label>}
-            <div className="flex items-center bg-tertiary bg-opacity-40 rounded-md w-36">
+            <div className="flex items-center bg-tertiary bg-opacity-40 rounded-md w-36 dark:text-white">
                 <button
                     type="button"
                     onClick={handleDecrement}
-                    className="px-4 py-2 text-lg font-semibold text-primary hover:bg-tertiary rounded focus:outline-none"
+                    className="px-4 py-2 text-lg font-semibold text-primary hover:bg-tertiary rounded focus:outline-none  dark:text-white"
                 >
                     -
                 </button>
@@ -79,12 +79,12 @@ const CounterInput: React.FC<CounterInputProps> = ({ initialCount = 0, min = 0, 
                     value={inputValue}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className="w-16 text-center bg-transparent text-primary font-semibold counter-input-hide focus:outline-none"
+                    className="w-16 text-center bg-transparent text-primary font-semibold counter-input-hide focus:outline-none  dark:text-white"
                 />
                 <button
                     type="button"
                     onClick={handleIncrement}
-                    className="px-4 py-2 text-lg font-semibold text-primary hover:bg-tertiary rounded focus:outline-none"
+                    className="px-4 py-2 text-lg font-semibold text-primary hover:bg-tertiary rounded focus:outline-none  dark:text-white"
                 >
                     +
                 </button>

@@ -42,7 +42,7 @@ export default async function RootLayout(props: RootLayoutProps) {
 		<NextIntlClientProvider messages={messages}>
 			<AuthProvider>
 				<SideMenu/>
-				<main className="flex-1 px-10 py-6">
+				<main className="flex-1 px-10 py-6 bg-white dark:bg-gray-800 text-black dark:text-white min-h-screen">
 					{children}
 				</main>
 			</AuthProvider>

@@ -58,7 +58,7 @@ export default function Table({ products }: TableProps) {
                         <tr
                             key={product.id}
                             className={`bg-tertiaryLight text-primary font-medium w-full py-10 ${
-                                index % 2 === 0 ? "bg-tertiaryLight" : "bg-primary bg-opacity-30"
+                                index % 2 === 0 ? "bg-tertiaryLight dark:bg-primary text-white" : "bg-primary bg-opacity-30 dark:bg-tertiaryDark text-white"
                             }`}
                         >
                             <td className="py-3 pl-7">#{product.id}</td>
@@ -88,7 +88,7 @@ export default function Table({ products }: TableProps) {
                                         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
                                     >
                                         <button
-                                            className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                                            className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:text-black"
                                             onClick={() => router.push(`/products/edit/${product.id}`)}
                                         >
                                              {t('Edit')}

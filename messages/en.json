@@ -87,5 +87,24 @@
         "Email" : "Email",
         "Password" : "Password",
         "Username" : "Username"
+    },
+    "SideMenu" : {
+        "Home" : "Home",
+        "Dashboard" : "Dashboard",
+        "Products" : "Products",
+        "Companies" : "Companies",
+        "Settings" : "Settings",
+        "Users" : "Users",
+        "Logout" : "Logout",
+        "Login" : "Login",
+        "Register" : "Register",
+        "Profile" : "Profile",
+        "Edit Profile" : "Edit Profile",
+        "Close" : "Close",
+        "Language" : "Language",
+        "Dark": "Dark",
+        "Light": "Light",
+        "System": "System",
+        "Theme": "Theme"
     }
 }

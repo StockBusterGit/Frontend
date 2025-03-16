@@ -100,5 +100,22 @@
     "Not registered?": "Pas encore inscrit?",
     "Remember me": "Se souvenir de moi",
     "Sign in": "Se connecter"
-  }
+  },
+    "SideMenu" : {
+      "Home" : "Accueil",
+      "Dashboard" : "Tableau de bord",
+      "Products" : "Produits",
+      "Companies" : "Entreprises",
+      "Settings" : "Paramètres",
+      "Users" : "Utilisateurs",
+      "Logout" : "Déconnexion",
+      "Profile": "Profil",
+      "Edit Profile": "Modifier le profil",
+      "Close": "Fermer",
+      "Language": "Langue",
+      "Dark": "Sombre",
+      "Light": "Clair",
+      "System": "Système",
+      "Theme": "Thème"
+    }
 }

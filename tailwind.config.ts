@@ -14,6 +14,8 @@ const config: Config = {
         tertiary: "#DBA75F",
         tertiaryDark: "#B07A50",
         tertiaryLight: "#F0D9BA",
+        darkPrimary: "#4F4F4F",
+        darkSecondary: "#9B9B9B",
       },
       fontFamily: {
         'sans': ['montserrat', 'sans-serif'],
@@ -21,6 +23,7 @@ const config: Config = {
       }
     },
   },
+  darkMode: 'class', // Active le mode sombre basé sur la classe
   plugins: [],
 };
 export default config;
