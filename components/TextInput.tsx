@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 
 interface TextInputProps {
@@ -12,14 +13,14 @@ interface TextInputProps {
 
 const TextInput: React.FC<TextInputProps>  = (props) => {
 
-    const { onChange, label, className, placeholder, id, name } = props
-    const [value, setValue] = React.useState<string | number>('');
+    const { onChange, label, className, placeholder, id, name, value } = props
 
     const handleChange= (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        setValue(value);
         onChange(value);
     };
+
+
 
 
     return(
