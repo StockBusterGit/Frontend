@@ -15,9 +15,9 @@ export const getAllCompanies = async () => {
 	}
 };
 
-export const getCompanyById = async (id: string) => {
+export const getCompanyById = async (id: string | number) => {
 	try {
-		const response = await fetch(`${BASE_URL}/${id}`);
+		const response = await fetch(`${BASE_URL}${id}`);
 		if (!response.ok) throw new Error(`Entreprise avec ID ${id} non trouvée`);
 		return await response.json();
 	} catch (error) {
@@ -41,10 +41,10 @@ export const createCompany = async (data: Record<string, any>) => {
 	}
 }
 
-export const updateCompany = async (id: string, data: Record<string, any>) => {
+export const updateCompany = async (id: string | number, data: Record<string, any>) => {
 	try {
-		const response = await fetch(`${BASE_URL}/${id}`, {
-			method: "PUT",
+		const response = await fetch(`${BASE_URL}${id}`, {
+			method: "PATCH",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
 		});
@@ -56,13 +56,13 @@ export const updateCompany = async (id: string, data: Record<string, any>) => {
 	}
 }
 
-export const deleteCompany = async (id: string) => {
+export const deleteCompany = async (id: string | number) => {
 	try {
-		const response = await fetch(`${BASE_URL}/${id}`, {
+		const response = await fetch(`${BASE_URL}${id}`, {
 			method: "DELETE",
 		});
 		if (!response.ok) throw new Error(`Erreur lors de la suppression de l'entreprise ${id}`);
-		return await response.json();
+		return await response;
 	} catch (error) {
 		console.error(error);
 		return null;

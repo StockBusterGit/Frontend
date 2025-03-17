@@ -30,6 +30,7 @@
   },
   "Company": {
     "title-add": "Créer une Entreprise",
+    "title-edit": "Editer une Entreprise",
     "label-name": "Nom de l'entreprise",
     "create-success": "Entreprise enregistré avec succès!",
     "submit": "Enregistrer",
