@@ -31,7 +31,7 @@ export default function SideMenu() {
 	return (
 		<>
 			<header
-				className={`h-screen fixed lg:sticky top-0 flex flex-col items-center gap-14 p-5 bg-secondary text-white
+				className={`h-screen fixed lg:sticky top-0 flex flex-col items-center z-50 gap-14 p-5 bg-secondary text-white
 				transform transition-transform duration-300
 				 w-72 lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}>
 				<Link href={"/"} className="flex flex-col items-center">
@@ -87,7 +87,7 @@ export default function SideMenu() {
 					</button>
 				</div>
 			</header>
-			<div className={`bg-secondary text-white fixed flex justify-end
+			<div className={`bg-secondary z-50 text-white fixed flex justify-end
 			transition-margin duration-300
 			 p-2 rounded-br lg:hidden ${open ? "ml-60" : "ml-0"}
 	
