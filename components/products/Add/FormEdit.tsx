@@ -8,9 +8,16 @@ import { isValidPrice, isValidStockRange, isValidText, isValidSelection } from '
 import { FormEditProps, ProductDataSend } from "@/utils/Interface";
 import Toaster from "@/components/Toaster";
 import { redirect } from "next/navigation";
-import { getStatusRequest } from '@/utils/productRequest';
+import { getStatusRequest, getCompaniesRequest } from '@/utils/productRequest';
 
-export default function FormEdit({ id, label, price_unit, quantity, stock_min, tags, status, company, onSubmit }: FormEditProps) {
+const transformOptions = (options: { id: number; label?: string; name?: string }[]) => {
+    return options.map(option => ({
+        id: option.id,
+        label: option.label || option.name || '',
+    }));
+};
+
+export default function FormEdit({ id, label, price_unit, quantity, stock_min, stock, tags, status, company, onSubmit }: FormEditProps) {
     const t = useTranslations('Product');
 
     const [labelText, setLabelText] = useState<string>(label || '');
@@ -18,11 +25,12 @@ export default function FormEdit({ id, label, price_unit, quantity, stock_min, t
     const [stockValue, setStockValue] = useState<number>(quantity || 0);
     const [stockMin, setStockMin] = useState<number>(stock_min || 0);
     const [formatValue, setFormatValue] = useState<{ id: number; label: string }[]>(tags || []);
-    const [stockMax, setStockMax] = useState<number>(1000);
+    const [stockMax, setStockMax] = useState<number>( stock || 100);
     const [statusValue, setStatusValue] = useState<string>(status || '');
     const [entrepriseValue, setEntrepriseValue] = useState<string>(company.name || '');
     const [showToaster, setShowToaster] = useState<boolean>(false);
-    const [statusOptions, setStatusOptions] = useState<{ id: number; name: string }[]>([]);
+    const [statusOptions, setStatusOptions] = useState<{ id: number; label: string }[]>([]);
+    const [companyOptions, setCompanyOptions] = useState<{ id: number; label: string }[]>([]);
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -38,17 +46,33 @@ export default function FormEdit({ id, label, price_unit, quantity, stock_min, t
         const fetchStatus = async () => {
             try {
                 const statusData = await getStatusRequest();
+                const transformedStatus = transformOptions(statusData);
+                setStatusOptions(transformedStatus);
 
-                setStatusOptions(statusData);
+                // Set default value for status
+                const defaultStatus = transformedStatus.find(s => s.label === status)?.label || '';
+                setStatusValue(defaultStatus);
             } catch (error) {
                 console.error('Erreur lors de la récupération des statuts :', error);
             }
         };
+        const fetchCompanies = async () => {
+            try {
+                const companyData = await getCompaniesRequest();
+                const transformedCompanies = transformOptions(companyData);
+                setCompanyOptions(transformedCompanies);
+
+                // Set default value for company
+                const defaultCompany = transformedCompanies.find(c => c.label === company.name)?.label || '';
+                setEntrepriseValue(defaultCompany);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des entreprises :', error);
+            }
+        };
 
         fetchStatus();
+        fetchCompanies();
     }, [id, label, price_unit, quantity, stock_min, tags, status, company]);
-
-    console.log(statusOptions);
 
     const validateForm = (): boolean => {
         const newErrors: Record<string, string> = {};
@@ -121,12 +145,12 @@ export default function FormEdit({ id, label, price_unit, quantity, stock_min, t
                 {errors.stock && <p className="text-red-500 text-sm mt-1">{errors.stock}</p>}
 
                 <div>
-                    <SelectInput onSelect={setStatusValue} options={statusOptions} label={t('Status')} />
+                    <SelectInput onSelect={setStatusValue} options={statusOptions} label={t('Status')} defaultValue={statusValue} />
                     {errors.status && <p className="text-red-500 text-sm mt-1">{errors.status}</p>}
                 </div>
 
                 <div>
-                    <SelectInput onSelect={setEntrepriseValue} options={company ? [{ id: company.id, name: company.name }] : []} label={t('Entreprise')} />
+                    <SelectInput onSelect={setEntrepriseValue} options={companyOptions} label={t('Entreprise')} defaultValue={entrepriseValue} />
                     {errors.entreprise && <p className="text-red-500 text-sm mt-1">{errors.entreprise}</p>}
                 </div>
 

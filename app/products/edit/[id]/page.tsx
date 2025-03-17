@@ -8,7 +8,6 @@ import {getProductsByIdRequest} from "@/utils/productRequest";
 
 export default function EditProductPage() {
     const t = useTranslations('Product');
-    const x = useTranslations('General');
     const { id } = useParams<{ id: string }>();
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
@@ -48,7 +47,7 @@ export default function EditProductPage() {
         }
     };
 
-    if (loading) return <p>{x('Loading')}</p>;
+    if (loading) return <div className={"w-full"}><div className={"loader"}></div></div>;
     if (error) return <p className="text-red-500">{error}</p>;
 
     return (

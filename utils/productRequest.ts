@@ -56,4 +56,13 @@ export const getStatusRequest = async () => {
     }
 }
 
+export const getCompaniesRequest = async () => {
+    try {
+        const response = await productApi.get('/companies');
+        return response.data;
+    } catch (error) {
+        throw new Error('Échec de la récupération des entreprises : '+error);
+    }
+}
+
 
