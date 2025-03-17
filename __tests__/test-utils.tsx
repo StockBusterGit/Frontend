@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { render } from '@testing-library/react';
+import { AuthProvider } from '../components/context/AuthContext'; // Importez le AuthProvider
 
 const messages = {
     Components: {
@@ -14,7 +15,9 @@ const messages = {
 export function renderWithIntl(ui: ReactNode) {
     return render(
         <NextIntlClientProvider locale="en" messages={messages}>
-            {ui}
+            <AuthProvider> {/* Ajoutez le AuthProvider */}
+                {ui}
+            </AuthProvider>
         </NextIntlClientProvider>
     );
 }
