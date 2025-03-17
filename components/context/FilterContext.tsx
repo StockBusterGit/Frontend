@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { ProductProps } from "@/utils/Interface";
 
 interface Filter {
     searchText: string;
@@ -6,20 +7,10 @@ interface Filter {
     OutOfStock: boolean;
 }
 
-interface Product {
-    id: number;
-    name: string;
-    price: number;
-    stock: number;
-    stockMax: number;
-    format: string[];
-    isOutOfStock: boolean;
-    status: string;
-}
 
 interface FilterContextType {
     filter: Filter;
-    data: Product[];
+    data: ProductProps[];
     setFilter: (filter: Filter) => void;
 }
 

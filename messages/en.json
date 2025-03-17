@@ -1,5 +1,8 @@
 {
-  "HomePage": {
+    "General": {
+        "Loading": "Loading..."
+    },
+    "HomePage": {
     "title": "Welcome"
   },
   "Components": {
@@ -31,6 +34,8 @@
         "title": "Product",
         "Name": "Name",
         "Price": "Price",
+        "Actif": "Actif",
+        "Loading...": "Loading...",
         "Stock": "Stock",
         "Product": "Product",
         "Products": "Products",

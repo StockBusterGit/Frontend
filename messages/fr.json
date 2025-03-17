@@ -1,4 +1,7 @@
 {
+  "General" : {
+    "Loading": "Chargement..."
+  },
   "HomePage": {
     "title": "Bienvenue"
   },
@@ -9,6 +12,7 @@
     "Growing stock": "Stock croissant",
     "Descending stock": "Stock décroissant",
     "Search": "Rechercher",
+    "Actif": "Actif",
     "Id": "Id",
     "Label": "Libellé",
     "Stock": "Stock",

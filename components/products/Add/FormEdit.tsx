@@ -5,58 +5,40 @@ import TextInput from '@/components/TextInput';
 import CounterInput from "@/components/CounterInput";
 import SelectInput from "@/components/SelectInput";
 import { isValidPrice, isValidStockRange, isValidText, isValidSelection } from '@/utils/formValidation';
-import {ProductDataSend} from "@/utils/Interface";
+import {FormEditProps, ProductDataSend} from "@/utils/Interface";
 import Toaster from "@/components/Toaster";
 import {redirect} from "next/navigation";
 
-interface FormEditProps {
-    id?: number;
-    label?: string;
-    description?: string;
-    price?: number;
-    stock?: number;
-    stockMaximum?: number;
-    stockMinimum?: number;
-    format?: string[];
-    status?: string[];
-    entreprise?: string[];
-    onSubmit: (productData: ProductDataSend) => void;
-}
 
 
-export default function FormEdit({id, label, description, price, stock, stockMaximum, stockMinimum, format, status, entreprise, onSubmit }: FormEditProps) {
+export default function FormEdit({id, label, price_unit, quantity, stock_min, tags, status, company, onSubmit }: FormEditProps) {
     const t = useTranslations('Product');
 
     const [labelText, setLabelText] = useState<string>(label || '');
-    const [descriptionText, setDescriptionText] = useState<string>(description || '');
-    const [priceValue, setPriceValue] = useState<number>(price || 0);
-    const [stockValue, setStockValue] = useState<number>(stock || 0);
-    const [stockMin, setStockMin] = useState<number>(stockMinimum || 0);
-    const [stockMax, setStockMax] = useState<number>(stockMaximum || 100);
-    const [formatValue, setFormatValue] = useState<string>(format?.[0] || '');
+    const [priceValue, setPriceValue] = useState<number>(price_unit || 0);
+    const [stockValue, setStockValue] = useState<number>(price_unit || 0);
+    const [stockMin, setStockMin] = useState<number>(stock_min || 0);
+    const [formatValue, setFormatValue] = useState<string>(tags || {1, ''});
     const [statusValue, setStatusValue] = useState<string>(status?.[0] || '');
-    const [entrepriseValue, setEntrepriseValue] = useState<string>(entreprise?.[0] || '');
+    const [entrepriseValue, setEntrepriseValue] = useState<string>(company?.[0] || '');
     const [showToaster, setShowToaster] = useState<boolean>(false);
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     useEffect(() => {
         setLabelText(label || '');
-        setDescriptionText(description || '');
-        setPriceValue(price || 0);
+        setPriceValue(price_unit || 0);
         setStockValue(stock || 0);
         setStockMin(stockMinimum || 0);
-        setStockMax(stockMaximum || 100);
         setFormatValue( '');
         setStatusValue('');
         setEntrepriseValue( '');
-    }, [id, label, description, price, stock, stockMinimum, stockMaximum, format, status, entreprise]);
+    }, [id, label, price_unit, stock, stockMinimum, stockMaximum, format, status, entreprise]);
 
     const validateForm = (): boolean => {
         const newErrors: Record<string, string> = {};
         console.log(entrepriseValue);
         if (!isValidText(labelText)) newErrors.label = t('errors.labelRequired');
-        if (!isValidText(descriptionText)) newErrors.description = t('errors.descriptionRequired');
         if (!isValidPrice(priceValue)) newErrors.price = t('errors.pricePositive');
         if (!isValidStockRange(stockMin, stockMax)) newErrors.stock = t('errors.stockRangeInvalid');
         if (!isValidSelection(statusValue)) newErrors.status = t('errors.selectStatus');
@@ -82,12 +64,10 @@ export default function FormEdit({id, label, description, price, stock, stockMax
         const productData: ProductDataSend = {
             id,
             label: labelText,
-            description: descriptionText,
-            price: priceValue,
+            price_unit: priceValue,
             stock: stockValue,
-            stockMinimum: stockMin,
-            stockMaximum: stockMax,
-            format: formatValue,
+            stock_min: stockMin,
+            tags: formatValue,
             status: statusValue,
             entreprise: entrepriseValue,
         };
@@ -109,11 +89,6 @@ export default function FormEdit({id, label, description, price, stock, stockMax
             <div>
                 <TextInput label={t('Label')} value={labelText} onChange={setLabelText} />
                 {errors.label && <p className="text-red-500 text-sm mt-1">{errors.label}</p>}
-            </div>
-
-            <div>
-                <TextInput label={t('Description')} value={descriptionText} onChange={setDescriptionText} />
-                {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
             </div>
 
             <div>

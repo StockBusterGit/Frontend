@@ -3,32 +3,32 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import FormEdit from '@/components/products/Add/FormEdit';
-import { ProductData, ProductDataSend } from "@/utils/Interface";
+import { ProductDataSend, ProductProps} from "@/utils/Interface";
+import {getProductsByIdRequest} from "@/utils/productRequest";
 
 export default function EditProductPage() {
     const t = useTranslations('Product');
+    const x = useTranslations('General');
     const { id } = useParams<{ id: string }>();
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [product, setProduct] = useState<ProductData | null>(null);
+    const [product, setProduct] = useState<ProductProps | null>(null);
+
 
     useEffect(() => {
-        async function fetchProduct() {
-            if (!id) return;
+
+        const fetchProducts = async () => {
             try {
-                const response = await fetch(`/api/products/${id}`);
-                if (!response.ok) throw new Error('Failed to fetch product');
-                const data: ProductData = await response.json();
+                const data = await getProductsByIdRequest(id);
                 setProduct(data);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'Error fetching product');
-            } finally {
                 setLoading(false);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des produits:', error);
             }
         }
-        fetchProduct();
-    }, [id]);
+        fetchProducts();
+    }, []);
 
     const handleFormSubmit = async (updatedProduct: ProductDataSend) => {
         try {
@@ -48,7 +48,7 @@ export default function EditProductPage() {
         }
     };
 
-    if (loading) return <p>{t('Loading...')}</p>;
+    if (loading) return <p>{x('Loading')}</p>;
     if (error) return <p className="text-red-500">{error}</p>;
 
     return (
