@@ -47,4 +47,13 @@ export const deleteProductRequest = async (productId: number) => {
     }
 };
 
+export const getStatusRequest = async () => {
+    try {
+        const response = await productApi.get('/status');
+        return response.data;
+    } catch (error) {
+        throw new Error('Échec de la récupération des status : '+error);
+    }
+}
+
 

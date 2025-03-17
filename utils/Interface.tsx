@@ -22,19 +22,18 @@ export interface FormEditProps {
     company: {id: number; name: string};
     tags: [{ id: number; label: string }];
     statusEntity: object;
+    onSubmit: (productData: ProductDataSend) => void;
 }
 
 export interface ProductDataSend {
     id?: number;
     label: string;
     price_unit: number;
-    quantity: number;
     stock: number;
     stock_min: number;
+    tags: { id: number; label: string }[];
     status: string;
-    company: {id: number; name: string};
-    tags: [{ id: number; label: string }];
-    statusEntity: object;
+    company: string;
 }
 
 export interface ProductProps {
