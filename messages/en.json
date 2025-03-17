@@ -1,6 +1,6 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "title": "Welcome"
   },
   "Components": {
       "title": "Component",
@@ -81,5 +81,30 @@
             "selectFormat": "Please select a format",
             "stockRangeInvalid": "Minimum stock must be less than or equal to maximum stock"
         }
+    },
+    "Auth" : {
+        "Login Page" : "Login Page",
+        "Email" : "Email",
+        "Password" : "Password",
+        "Username" : "Username"
+    },
+    "SideMenu" : {
+        "Home" : "Home",
+        "Dashboard" : "Dashboard",
+        "Products" : "Products",
+        "Companies" : "Companies",
+        "Settings" : "Settings",
+        "Users" : "Users",
+        "Logout" : "Logout",
+        "Login" : "Login",
+        "Register" : "Register",
+        "Profile" : "Profile",
+        "Edit Profile" : "Edit Profile",
+        "Close" : "Close",
+        "Language" : "Language",
+        "Dark": "Dark",
+        "Light": "Light",
+        "System": "System",
+        "Theme": "Theme"
     }
 }

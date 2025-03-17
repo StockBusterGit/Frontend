@@ -8,7 +8,6 @@ interface ListSelectProps {
     onSelect: (value: string) => void;
 }
 
-// Ne filtre pas encore les données
 
 const FilterInput: React.FC<ListSelectProps> = ({ onSelect }) => {
     const t = useTranslations('Components');
@@ -21,7 +20,7 @@ const FilterInput: React.FC<ListSelectProps> = ({ onSelect }) => {
 
     return (
         <div >
-            <select id="listSelect" onChange={handleChange} className={'text-primary font-semibold w-24  bg-transparent.5 px-4 rounded-[4px]'}>
+            <select id="listSelect" onChange={handleChange} className={'text-primary font-semibold w-24  bg-transparent.5 px-4 rounded-[4px] dark:bg-transparent text-white'}>
                 <option value="Filter">
                     {t('order_by')}
                 </option>
