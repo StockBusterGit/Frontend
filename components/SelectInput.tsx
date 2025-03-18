@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { useTranslations } from "next-intl";
 
@@ -10,14 +9,14 @@ interface ListSelectProps {
     defaultValue?: string | number;
 }
 
+
+
 const SelectInput: React.FC<ListSelectProps> = ({ options, onSelect, label, className, defaultValue }) => {
     const t = useTranslations('Product');
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedValue = options.find(option =>
-            typeof option === 'string' ? option === event.target.value : option.label === event.target.value
-        );
-        onSelect(selectedValue);
+        const selectedId = parseInt(event.target.value, 10);
+        onSelect(selectedId);
     };
 
     return (
@@ -28,7 +27,7 @@ const SelectInput: React.FC<ListSelectProps> = ({ options, onSelect, label, clas
                     {t('Select an option')}
                 </option>
                 {options.map(option => (
-                    <option key={typeof option === 'string' ? option : option.id} value={typeof option === 'string' ? option : option.label}>
+                    <option key={typeof option === 'string' ? option : option.id} value={typeof option === 'string' ? option : option.id}>
                         {typeof option === 'string' ? option : option.label}
                     </option>
                 ))}
@@ -36,6 +35,5 @@ const SelectInput: React.FC<ListSelectProps> = ({ options, onSelect, label, clas
         </div>
     );
 };
-
 
 export default SelectInput;

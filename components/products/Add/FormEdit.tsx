@@ -5,10 +5,11 @@ import TextInput from '@/components/TextInput';
 import CounterInput from "@/components/CounterInput";
 import SelectInput from "@/components/SelectInput";
 import { isValidPrice, isValidStockRange, isValidText, isValidSelection } from '@/utils/formValidation';
-import { FormEditProps, ProductDataSend } from "@/utils/Interface";
+import { FormEditProps, ProductDataSend, Tag } from "@/utils/Interface";
 import Toaster from "@/components/Toaster";
 import { redirect } from "next/navigation";
-import { getStatusRequest, getCompaniesRequest } from '@/utils/productRequest';
+import { getStatusRequest, getCompaniesRequest, getTagsRequest } from '@/utils/productRequest';
+import MultiSelectInput from "@/components/MultiSelectInput";
 
 const transformOptions = (options: { id: number; label?: string; name?: string }[]) => {
     return options.map(option => ({
@@ -17,20 +18,21 @@ const transformOptions = (options: { id: number; label?: string; name?: string }
     }));
 };
 
-export default function FormEdit({ id, label, price_unit, quantity, stock_min, stock, tags, status, company, onSubmit }: FormEditProps) {
+export default function FormEdit({ id, label, price_unit, quantity, stock_min, stock, tags, status, company, onSubmit, statusEntity }: FormEditProps) {
     const t = useTranslations('Product');
 
     const [labelText, setLabelText] = useState<string>(label || '');
     const [priceValue, setPriceValue] = useState<number>(price_unit || 0);
     const [stockValue, setStockValue] = useState<number>(quantity || 0);
     const [stockMin, setStockMin] = useState<number>(stock_min || 0);
-    const [formatValue, setFormatValue] = useState<{ id: number; label: string }[]>(tags || []);
-    const [stockMax, setStockMax] = useState<number>( stock || 100);
-    const [statusValue, setStatusValue] = useState<string>(status || '');
-    const [entrepriseValue, setEntrepriseValue] = useState<string>(company.name || '');
+    const [stockMax, setStockMax] = useState<number>(stock || 100);
+    const [statusValue, setStatusValue] = useState<number>(statusEntity?.id || 0);
+    const [entrepriseValue, setEntrepriseValue] = useState<number>(company?.id || 0);
     const [showToaster, setShowToaster] = useState<boolean>(false);
     const [statusOptions, setStatusOptions] = useState<{ id: number; label: string }[]>([]);
     const [companyOptions, setCompanyOptions] = useState<{ id: number; label: string }[]>([]);
+    const [formatOptions, setFormatOptions] = useState<Tag[]>([]);
+    const [formatValue, setFormatValue] = useState<Tag[]>(tags || []);
 
     const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -39,9 +41,10 @@ export default function FormEdit({ id, label, price_unit, quantity, stock_min, s
         setPriceValue(price_unit || 0);
         setStockValue(quantity || 0);
         setStockMin(stock_min || 0);
+        setStockMax(stock || 100);
         setFormatValue(tags || []);
-        setStatusValue(status || '');
-        setEntrepriseValue(company.name || '');
+        setStatusValue(statusEntity?.id || 0);
+        setEntrepriseValue(company?.id || 0);
 
         const fetchStatus = async () => {
             try {
@@ -50,29 +53,40 @@ export default function FormEdit({ id, label, price_unit, quantity, stock_min, s
                 setStatusOptions(transformedStatus);
 
                 // Set default value for status
-                const defaultStatus = transformedStatus.find(s => s.label === status)?.label || '';
+                const defaultStatus = transformedStatus.find(s => s.id === statusEntity?.id)?.id || 0;
                 setStatusValue(defaultStatus);
             } catch (error) {
                 console.error('Erreur lors de la récupération des statuts :', error);
             }
         };
+
         const fetchCompanies = async () => {
             try {
                 const companyData = await getCompaniesRequest();
                 const transformedCompanies = transformOptions(companyData);
                 setCompanyOptions(transformedCompanies);
 
-                // Set default value for company
-                const defaultCompany = transformedCompanies.find(c => c.label === company.name)?.label || '';
+                const defaultCompany = transformedCompanies.find(c => c.id === company?.id)?.id || 0;
                 setEntrepriseValue(defaultCompany);
             } catch (error) {
                 console.error('Erreur lors de la récupération des entreprises :', error);
             }
         };
 
+        const fetchTags = async () => {
+            try {
+                const tagsData = await getTagsRequest();
+                const transformedTags = transformOptions(tagsData);
+                setFormatOptions(transformedTags);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des tags :', error);
+            }
+        };
+
         fetchStatus();
         fetchCompanies();
-    }, [id, label, price_unit, quantity, stock_min, tags, status, company]);
+        fetchTags();
+    }, [id, label, price_unit, quantity, stock_min, tags, status, company, statusEntity]);
 
     const validateForm = (): boolean => {
         const newErrors: Record<string, string> = {};
@@ -100,6 +114,7 @@ export default function FormEdit({ id, label, price_unit, quantity, stock_min, s
             id,
             label: labelText,
             price_unit: priceValue,
+            quantity: stockValue,
             stock: stockValue,
             stock_min: stockMin,
             tags: formatValue,
@@ -145,12 +160,21 @@ export default function FormEdit({ id, label, price_unit, quantity, stock_min, s
                 {errors.stock && <p className="text-red-500 text-sm mt-1">{errors.stock}</p>}
 
                 <div>
-                    <SelectInput onSelect={setStatusValue} options={statusOptions} label={t('Status')} defaultValue={statusValue} />
+                    <MultiSelectInput
+                        onSelect={setFormatValue}
+                        options={formatOptions}
+                        label={t('Format')}
+                        selectedValues={formatValue}  // Assure que les tags sélectionnés s'affichent
+                    />
+                </div>
+
+                <div>
+                    <SelectInput onSelect={(value) => setStatusValue(Number(value))} options={statusOptions} label={t('Status')} defaultValue={statusValue} />
                     {errors.status && <p className="text-red-500 text-sm mt-1">{errors.status}</p>}
                 </div>
 
                 <div>
-                    <SelectInput onSelect={setEntrepriseValue} options={companyOptions} label={t('Entreprise')} defaultValue={entrepriseValue} />
+                    <SelectInput onSelect={(value) => setEntrepriseValue(Number(value))} options={companyOptions} label={t('Entreprise')} defaultValue={entrepriseValue} />
                     {errors.entreprise && <p className="text-red-500 text-sm mt-1">{errors.entreprise}</p>}
                 </div>
 

@@ -1,37 +1,42 @@
-'use client';
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { Tag } from "@/utils/Interface";
 
-interface Tag {
-    id: number;
+interface MultiSelectInputProps {
+    options: Tag[];
+    selectedValues: Tag[];
+    onSelect: (values: Tag[]) => void;
     label: string;
 }
 
-interface MultiSelectProps {
-    options: Tag[];
-    onSelect: (values: number[]) => void;
-    label?: string;
-    className?: string;
-}
+const MultiSelectInput: React.FC<MultiSelectInputProps> = ({ options, selectedValues, onSelect, label }) => {
+    const [selected, setSelected] = useState<Tag[]>(selectedValues || []);
 
-const MultiSelectInput: React.FC<MultiSelectProps> = ({ options, onSelect, label, className }) => {
+    useEffect(() => {
+        setSelected(selectedValues || []);
+    }, [selectedValues]);
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedOptions = Array.from(event.target.selectedOptions, option => parseInt(option.value));
+        const selectedOptions = Array.from(event.target.selectedOptions).map(option => {
+            const id = Number(option.value);
+            return options.find(tag => tag.id === id)!;
+        });
+
+        setSelected(selectedOptions);
         onSelect(selectedOptions);
     };
 
     return (
-        <div className={`flex flex-col w-96 ${className || ''}`}>
-            <label className={'text-black font-semibold font-sans mb-2 dark:text-white'}>{label}</label>
+        <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
             <select
-                id="multiSelect"
-                onChange={handleChange}
                 multiple
-                className={'text-primary font-semibold bg-tertiary bg-opacity-40 py-2 px-4 rounded-[4px] dark:text-white'}
+                value={selected.map(tag => tag.id.toString())}
+                onChange={handleChange}
+                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
             >
-                {options.map((option) => (
-                    <option key={option.id} value={option.id}>
-                        {option.label}
+                {options.map(tag => (
+                    <option key={tag.id} value={tag.id}>
+                        {tag.label}
                     </option>
                 ))}
             </select>

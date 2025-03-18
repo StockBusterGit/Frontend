@@ -1,16 +1,18 @@
 import { useTranslations } from "next-intl";
 import StatusDisplay from "@/components/products/StatusDisplay";
-import { useState } from "react";
+import {useState} from "react";
 import FiVertical from '../../public/icons/fiicon_vertical.svg';
 import { useRouter } from "next/navigation";
 import {ProductProps, TableProps} from "@/utils/Interface";
-
-
 
 export default function Table({ products }: TableProps ) {
     const t = useTranslations('Components');
     const [openMenuId, setOpenMenuId] = useState<number | null>(null);
     const router = useRouter();
+
+
+
+
 
     // Toggle menu
     const toggleMenu = (id: number | undefined) => {
@@ -63,7 +65,7 @@ export default function Table({ products }: TableProps ) {
                                 </span>
                             ))}</td>
                             <td>
-                                <StatusDisplay IsOutOfStock={false} status={product.status} />
+                                <StatusDisplay IsOutOfStock={product.quantity <= 0} status={product.statusEntity.label} />
                             </td>
                             <td className="relative">
                                 <button

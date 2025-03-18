@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import FormEdit from '@/components/products/Add/FormEdit';
-import { ProductDataSend, ProductProps} from "@/utils/Interface";
-import {getProductsByIdRequest} from "@/utils/productRequest";
+import {ProductDataSend, ProductDataSendApi, ProductProps} from "@/utils/Interface";
+import {getProductsByIdRequest, updateProductRequest} from "@/utils/productRequest";
 
 export default function EditProductPage() {
     const t = useTranslations('Product');
@@ -33,20 +33,26 @@ export default function EditProductPage() {
         try {
             if (!id) return;
 
-            const response = await fetch(`/api/products/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updatedProduct),
-            });
+            const tagIds = updatedProduct.tags.map(tag => tag.id);
 
-            if (!response.ok) throw new Error('Failed to update product');
+            const productData: ProductDataSendApi = {
+                label: updatedProduct.label,
+                price_unit: updatedProduct.price_unit,
+                quantity: updatedProduct.quantity,
+                stock: updatedProduct.stock,
+                stock_min: updatedProduct.stock_min,
+                tags: tagIds,
+                statusId: updatedProduct.status,
+                companyId: updatedProduct.company,
+            };
 
-            router.push('/');
+            await updateProductRequest(id, productData);
+
+            router.push('/products');
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Error updating product');
         }
     };
-
     if (loading) return <div className={"w-full"}><div className={"loader"}></div></div>;
     if (error) return <p className="text-red-500">{error}</p>;
 

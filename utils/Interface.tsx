@@ -11,29 +11,9 @@ export interface ProductData {
     entreprise: string[];
 }
 
-export interface FormEditProps {
-    id?: number;
+export interface Tag {
+    id: number;
     label: string;
-    price_unit: number;
-    quantity: number;
-    stock: number;
-    stock_min: number;
-    status: string;
-    company: {id: number; name: string};
-    tags: [{ id: number; label: string }];
-    statusEntity: object;
-    onSubmit: (productData: ProductDataSend) => void;
-}
-
-export interface ProductDataSend {
-    id?: number;
-    label: string;
-    price_unit: number;
-    stock: number;
-    stock_min: number;
-    tags: { id: number; label: string }[];
-    status: string;
-    company: string;
 }
 
 export interface ProductProps {
@@ -43,10 +23,10 @@ export interface ProductProps {
     quantity: number;
     stock: number;
     stock_min: number;
-    status: string;
+    status: number;
     company: {id: number; name: string};
     tags: [{ id: number; label: string }];
-    statusEntity: object;
+    statusEntity: {id: number; label: string};
 }
 
 export interface TableProps {
@@ -57,10 +37,56 @@ export interface TableProps {
         quantity: number;
         stock: number;
         stock_min: number;
-        status: string;
+        status: number;
         company: {id: number; name: string};
         tags: [{ id: number; label: string }];
-        statusEntity: object;
+        statusEntity: {id: number; label: string};
     }[];
 }
 
+export interface Tag {
+    id: number;
+    label: string;
+}
+
+export interface FormEditProps {
+    id?: number;
+    label: string;
+    price_unit: number;
+    quantity: number;
+    stock: number;
+    stock_min: number;
+    status: number;
+    company: { id: number; name: string };
+    tags: Tag[];
+    statusEntity: { id: number; label: string };
+    onSubmit: (productData: ProductDataSend) => void;
+    statusOptions?: { id: number; label: string }[];
+    companyOptions?: { id: number; label: string }[];
+    formatOptions?: Tag[];
+}
+
+
+export interface ProductDataSend {
+    id?: number;
+    label: string;
+    price_unit: number;
+    quantity: number;
+    stock: number;
+    stock_min: number;
+    status: number;
+    company: number;
+    tags: Tag[];
+}
+
+export interface ProductDataSendApi {
+    id?: number;
+    label: string;
+    price_unit: number;
+    quantity: number;
+    stock: number;
+    stock_min: number;
+    statusId: number;
+    companyId: number;
+    tags: number[];
+}

@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ProductDataSendApi} from "@/utils/Interface";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -19,9 +20,9 @@ export const getProductsRequest = async () => {
 }
 
 
-export const createProductRequest = async (productData: { name: string; price: number; stock: number; image: string }) => {
+export const createProductRequest = async (productData: ProductDataSendApi) => {
     try {
-        const response = await productApi.post('/create', productData);
+        const response = await productApi.post('products', productData);
         return response.data;
     } catch (error) {
         throw new Error('Échec de la création du produit : '+ error);
@@ -29,12 +30,21 @@ export const createProductRequest = async (productData: { name: string; price: n
 };
 
 export const getProductsByIdRequest = async (id: string) => {
-    console.log(id);
     try {
         const response = await productApi.get(`/products/${id}`);
         return response.data;
     } catch (error) {
         throw new Error('Échec de la récupération des produits : '+error);
+    }
+}
+
+export const updateProductRequest = async (productId: string, productData: ProductDataSendApi) => {
+    try {
+        const url = `products/${productId}`;
+        const response = await productApi.patch(url, productData);
+        return response.data;
+    } catch (error) {
+        throw new Error('Échec de la mise à jour du produit : '+error);
     }
 }
 
@@ -64,5 +74,24 @@ export const getCompaniesRequest = async () => {
         throw new Error('Échec de la récupération des entreprises : '+error);
     }
 }
+
+export const getTagsRequest = async () => {
+    try {
+        const response = await productApi.get('/tags');
+        return response.data;
+    } catch (error) {
+        throw new Error('Échec de la récupération des tags : '+error);
+    }
+}
+
+export const getStatusByIdRequest = async (id: number) => {
+    try {
+        const response = await productApi.get(`status/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error('Échec de la récupération du statut : '+error);
+    }
+}
+
 
 
