@@ -17,7 +17,6 @@ export default function Filter() {
 
     console.log(orderBy);
 
-
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchText(e.target.value);
         setFilter({ ...filter, searchText: e.target.value });
@@ -33,7 +32,6 @@ export default function Filter() {
         setFilter({ ...filter, OutOfStock: e.target.checked });
     };
 
-    console.log(filter);
 
     return (
         <div className={'flex justify-between mt-4 pb-8 border-b-2 border-tertiary border-opacity-20'}>

@@ -1,35 +1,35 @@
 import { useTranslations } from "next-intl";
 import StatusDisplay from "@/components/products/StatusDisplay";
-import { useState } from "react";
+import {useState} from "react";
 import FiVertical from '../../public/icons/fiicon_vertical.svg';
 import { useRouter } from "next/navigation";
+import {ProductProps, TableProps} from "@/utils/Interface";
 
-export interface TableProps {
-    products: {
-        id: number;
-        name: string;
-        price: number;
-        stock: number;
-        stockMax: number;
-        format: string[];
-        isOutOfStock: boolean;
-        status: string;
-    }[];
-}
-
-export default function Table({ products }: TableProps) {
+export default function Table({ products }: TableProps ) {
     const t = useTranslations('Components');
     const [openMenuId, setOpenMenuId] = useState<number | null>(null);
     const router = useRouter();
+    const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+
+
 
     // Toggle menu
-    const toggleMenu = (id: number) => {
-        setOpenMenuId(openMenuId === id ? null : id);
+    const toggleMenu = (id: number | undefined) => {
+        setOpenMenuId(openMenuId === id ? null : id ?? null);
     };
-
 
     const handleClickOutside = () => {
         setOpenMenuId(null);
+    };
+
+    const handleMouseEnter = (productId: number | undefined) => {
+        if (productId !== undefined) {
+            setHoveredProductId(productId);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredProductId(null);
     };
 
     return (
@@ -54,20 +54,50 @@ export default function Table({ products }: TableProps) {
                         </td>
                     </tr>
                 ) : (
-                    products.map((product, index) => (
+                    products.map((product: ProductProps, index: number) => (
                         <tr
                             key={product.id}
                             className={`bg-tertiaryLight text-primary font-medium w-full py-10 ${
-                                index % 2 === 0 ? "bg-tertiaryLight dark:bg-primary text-white" : "bg-primary bg-opacity-30 dark:bg-tertiaryDark text-white"
+                                index % 2 === 0 ? "bg-tertiaryLight dark:bg-primary dark:text-white" : "bg-primary bg-opacity-30 dark:bg-tertiaryDark dark:text-white"
                             }`}
                         >
                             <td className="py-3 pl-7">#{product.id}</td>
-                            <td className="text-left">{product.name}</td>
-                            <td>{product.price} €</td>
-                            <td>{product.stock}/{product.stockMax}</td>
-                            <td>{product.format.join(", ")}</td>
+                            <td className="text-left">{product.label}</td>
+                            <td>{product.price_unit} €</td>
+                            <td>{product.stock}/{product.stock_min}</td>
+                            <td  className="relative"
+                                 onMouseEnter={() => handleMouseEnter(product!.id)}
+                                 onMouseLeave={handleMouseLeave}> {product.tags.length > 2 ? (
+                                <div className="flex items-center">
+                                    {product.tags.slice(0, 2).map((tag, index) => (
+                                        <span key={index} className="bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs mr-2">
+                                                    {tag.label}
+                                                </span>
+                                    ))}
+                                    <button className="bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs">
+                                        +{product.tags.length - 2}
+                                    </button>
+                                </div>
+                            ) : (
+                                product.tags.map((tag, index) => (
+                                    <span key={index} className="bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs mr-2">
+                                                {tag.label}
+                                            </span>
+                                ))
+                            )}
+                                {hoveredProductId === product.id && product.tags.length > 2 && (
+                                    <div className="absolute top-0 right-0 mt-2 p-2 w-1/2 bg-white shadow-lg rounded-md z-50 border border-gray-300">
+                                        {product.tags.slice(2).map((tag, index) => (
+                                            <span key={index} className="block bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs mb-2">
+                                                    {tag.label}
+                                                </span>
+                                        ))}
+                                    </div>
+                                )}
+
+                            </td>
                             <td>
-                                <StatusDisplay IsOutOfStock={product.isOutOfStock} status={product.status} />
+                                <StatusDisplay IsOutOfStock={product.quantity <= 0} status={product.statusEntity.label} />
                             </td>
                             <td className="relative">
                                 <button
@@ -85,10 +115,10 @@ export default function Table({ products }: TableProps) {
                                 {openMenuId === product.id && (
                                     <div
                                         className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 shadow-md rounded-md z-50"
-                                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                                        onClick={(e) => e.stopPropagation()}
                                     >
                                         <button
-                                            className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:text-black"
+                                            className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:text-black "
                                             onClick={() => router.push(`/products/edit/${product.id}`)}
                                         >
                                              {t('Edit')}

@@ -15,7 +15,7 @@ export const loginRequest = async (credentials: { email: string; password: strin
         const response = await authApi.post('auth/login', credentials);
         return response.data;
     } catch (error) {
-        throw new Error('Échec de la connexion');
+        throw new Error('Échec de la connexion : '+error);
     }
 };
 
@@ -24,7 +24,7 @@ export const logoutRequest = async () => {
         const response = await authApi.post('/logout');
         return response.data;
     } catch (error) {
-        throw new Error('Échec de la déconnexion');
+        throw new Error('Échec de la déconnexion : '+error);
     }
 };
 

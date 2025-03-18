@@ -1,14 +1,9 @@
-import {useTranslations} from 'next-intl';
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import HomePageContent from "@/components/HomePageContent";
 
 
 export default function HomePage() {
-  const t = useTranslations('HomePage');
+
   return (
-      <>
-          <ProtectedRoute>
-            <h1>{t('title')}</h1>
-          </ProtectedRoute>
-      </>
+     <HomePageContent />
   );
 }

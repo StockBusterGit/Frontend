@@ -1,6 +1,9 @@
 {
+  "General" : {
+    "Loading": "Chargement..."
+  },
   "HomePage": {
-    "title": "Bienvenue"
+    "title": "Bonjour Baguette!"
   },
   "Components": {
     "title": "Composant",
@@ -9,6 +12,14 @@
     "Growing stock": "Stock croissant",
     "Descending stock": "Stock décroissant",
     "Search": "Rechercher",
+    "Actif": "Actif",
+    "Inactif": "Inactif",
+    "Rupture de stock": "Rupture de stock",
+    "En commande": "En commande",
+    "Bientôt en rupture": "Bientôt en rupture",
+    "Arrêté": "Arrêté",
+    "En promotion": "En promotion",
+    "Total products": "Total produits",
     "Id": "Id",
     "Label": "Libellé",
     "Stock": "Stock",
@@ -41,7 +52,15 @@
     "Name": "Nom",
     "Price": "Prix",
     "Stock": "Stock",
-    "Description": "Description",
+    "Actif": "Actif",
+    "Inactif": "Inactif",
+    "Rupture de stock": "Rupture de stock",
+    "En commande": "En commande",
+    "Bientôt en rupture": "Bientôt en rupture",
+    "Arrêté": "Arrêté",
+    "En promotion": "En promotion",
+    "Edit Product": "Modifier le produit",
+        "Description": "Description",
     "Add to cart": "Ajouter au panier",
     "Remove from cart": "Retirer du panier",
     "Product": "Produit",
@@ -90,8 +109,8 @@
       "pricePositive": "Le prix doit être positif",
       "descriptionRequired": "La description est requise"
 
-    }
-  },
+        }
+    },
   "Auth" : {
     "Login Page" : "Page de connexion",
     "Email" : "Email",
@@ -109,21 +128,21 @@
     "Remember me": "Se souvenir de moi",
     "Sign in": "Se connecter"
   },
-  "SideMenu" : {
-    "Home" : "Accueil",
-    "Dashboard" : "Tableau de bord",
-    "Products" : "Produits",
-    "Companies" : "Entreprises",
-    "Settings" : "Paramètres",
-    "Users" : "Utilisateurs",
-    "Logout" : "Déconnexion",
-    "Profile": "Profil",
-    "Edit Profile": "Modifier le profil",
-    "Close": "Fermer",
-    "Language": "Langue",
-    "Dark": "Sombre",
-    "Light": "Clair",
-    "System": "Système",
-    "Theme": "Thème"
-  }
+    "SideMenu" : {
+      "Home" : "Accueil",
+      "Dashboard" : "Tableau de bord",
+      "Products" : "Produits",
+      "Companies" : "Entreprises",
+      "Settings" : "Paramètres",
+      "Users" : "Utilisateurs",
+      "Logout" : "Déconnexion",
+      "Profile": "Profil",
+      "Edit Profile": "Modifier le profil",
+      "Close": "Fermer",
+      "Language": "Langue",
+      "Dark": "Sombre",
+      "Light": "Clair",
+      "System": "Système",
+      "Theme": "Thème"
+    }
 }
