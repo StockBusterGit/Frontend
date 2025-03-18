@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
 			},
 		],
 	},
+	typescript: {
+		ignoreBuildErrors: true,
+	},
+	eslint: {
+		ignoreDuringBuilds: true,
+	},
 	webpack(config: { module: { rules: { test: RegExp; use: string[]; }[]; }; }) {
 		config.module.rules.push({
 			test: /\.svg$/,

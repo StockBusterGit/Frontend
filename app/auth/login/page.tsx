@@ -22,7 +22,7 @@ export default function LoginPage() {
         try {
             await login(email, password);
         } catch (err) {
-            setError('Échec de la connexion. Veuillez réessayer.');
+            setError('Échec de la connexion. Veuillez réessayer.'+err);
         }
     };
 

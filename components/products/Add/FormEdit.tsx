@@ -18,7 +18,8 @@ const transformOptions = (options: { id: number; label?: string; name?: string }
     }));
 };
 
-export default function FormEdit({ id, label, price_unit, quantity, stock_min, stock, tags, status, company, onSubmit, statusEntity }: FormEditProps) {
+export default function FormEdit(props: FormEditProps) {
+    const { id, label, price_unit, quantity, stock_min, stock, tags, status, company, onSubmit, statusEntity } = props;
     const t = useTranslations('Product');
 
     const [labelText, setLabelText] = useState<string>(label || '');
@@ -122,7 +123,9 @@ export default function FormEdit({ id, label, price_unit, quantity, stock_min, s
             company: entrepriseValue,
         };
 
-        onSubmit(productData);
+        if (onSubmit) {
+            onSubmit(productData);
+        }
         setShowToaster(true);
 
         setTimeout(() => {
