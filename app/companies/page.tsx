@@ -9,7 +9,7 @@ export default function CompaniesPages() {
 	const [companies, setCompanies] = useState<[] | null>(null)
 
 	function handleDelete(id: number) {
-		const companyToDelete = companies?.find(company => company.id === id);
+		const companyToDelete = companies?.find((company:any) => company.id === id);
 		if(!companyToDelete) return
 
 		deleteCompany(id)

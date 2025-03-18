@@ -55,7 +55,7 @@ export default function EditProductPage() {
         const companyId = Array.isArray(id) ? id[0] : id
 
         updateCompany(companyId, data)
-            .then((res) => {
+            .then(() => {
                 setToast(true)
             })
     }

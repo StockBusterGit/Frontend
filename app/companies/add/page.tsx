@@ -37,7 +37,7 @@ export default function ProductsPage() {
         }
 
         createCompany(data)
-            .then(res => {
+            .then(() => {
                 setToast(true)
             })
     }

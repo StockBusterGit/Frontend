@@ -51,16 +51,16 @@ export interface Tag {
 
 export interface FormEditProps {
     id?: number;
-    label: string;
-    price_unit: number;
-    quantity: number;
-    stock: number;
-    stock_min: number;
-    status: number;
-    company: { id: number; name: string };
-    tags: Tag[];
-    statusEntity: { id: number; label: string };
-    onSubmit: (productData: ProductDataSend) => void;
+    label?: string;
+    price_unit?: number;
+    quantity?: number;
+    stock?: number;
+    stock_min?: number;
+    status?: number;
+    company?: { id: number; name: string };
+    tags?: Tag[];
+    statusEntity?: { id: number; label: string };
+    onSubmit?: (productData: ProductDataSend) => void;
     statusOptions?: { id: number; label: string }[];
     companyOptions?: { id: number; label: string }[];
     formatOptions?: Tag[];
