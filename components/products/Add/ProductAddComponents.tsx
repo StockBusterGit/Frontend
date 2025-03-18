@@ -1,7 +1,6 @@
 'use client';
 import ProfilePicture from "@/components/products/ProfilePicture";
 import FormEdit from "@/components/products/Add/FormEdit";
-import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import {ProductDataSend, ProductDataSendApi} from "@/utils/Interface";
 import { createProductRequest, getStatusRequest, getCompaniesRequest, getTagsRequest } from "@/utils/productRequest";
@@ -11,9 +10,9 @@ export default function ProductAddComponent() {
     const [statusOptions, setStatusOptions] = useState<{ id: number; label: string }[]>([]);
     const [companyOptions, setCompanyOptions] = useState<{ id: number; label: string }[]>([]);
     const [formatOptions, setFormatOptions] = useState<{ id: number; label: string }[]>([]);
-    const t = useTranslations('Product');
 
     useEffect(() => {
+        console.log(profileImage);
         const fetchData = async () => {
             try {
                 const statusData = await getStatusRequest();

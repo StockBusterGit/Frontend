@@ -9,8 +9,7 @@ export default function Table({ products }: TableProps ) {
     const t = useTranslations('Components');
     const [openMenuId, setOpenMenuId] = useState<number | null>(null);
     const router = useRouter();
-
-
+    const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
 
 
@@ -19,11 +18,18 @@ export default function Table({ products }: TableProps ) {
         setOpenMenuId(openMenuId === id ? null : id ?? null);
     };
 
-
-
-
     const handleClickOutside = () => {
         setOpenMenuId(null);
+    };
+
+    const handleMouseEnter = (productId: number | undefined) => {
+        if (productId !== undefined) {
+            setHoveredProductId(productId);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredProductId(null);
     };
 
     return (
@@ -59,11 +65,37 @@ export default function Table({ products }: TableProps ) {
                             <td className="text-left">{product.label}</td>
                             <td>{product.price_unit} €</td>
                             <td>{product.stock}/{product.stock_min}</td>
-                            <td>{product.tags.map((tags, index) => (
-                                <span key={index} className="bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs mr-2">
-                                    {tags.label}
-                                </span>
-                            ))}</td>
+                            <td  className="relative"
+                                 onMouseEnter={() => handleMouseEnter(product!.id)}
+                                 onMouseLeave={handleMouseLeave}> {product.tags.length > 2 ? (
+                                <div className="flex items-center">
+                                    {product.tags.slice(0, 2).map((tag, index) => (
+                                        <span key={index} className="bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs mr-2">
+                                                    {tag.label}
+                                                </span>
+                                    ))}
+                                    <button className="bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs">
+                                        +{product.tags.length - 2}
+                                    </button>
+                                </div>
+                            ) : (
+                                product.tags.map((tag, index) => (
+                                    <span key={index} className="bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs mr-2">
+                                                {tag.label}
+                                            </span>
+                                ))
+                            )}
+                                {hoveredProductId === product.id && product.tags.length > 2 && (
+                                    <div className="absolute top-0 right-0 mt-2 p-2 w-1/2 bg-white shadow-lg rounded-md z-50 border border-gray-300">
+                                        {product.tags.slice(2).map((tag, index) => (
+                                            <span key={index} className="block bg-primary bg-opacity-30 text-white rounded-md px-2 py-1 text-xs mb-2">
+                                                    {tag.label}
+                                                </span>
+                                        ))}
+                                    </div>
+                                )}
+
+                            </td>
                             <td>
                                 <StatusDisplay IsOutOfStock={product.quantity <= 0} status={product.statusEntity.label} />
                             </td>
