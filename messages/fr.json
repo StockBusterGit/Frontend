@@ -3,7 +3,7 @@
     "Loading": "Chargement..."
   },
   "HomePage": {
-    "title": "Bienvenue"
+    "title": "Bonjour Baguette!"
   },
   "Components": {
     "title": "Composant",
@@ -19,6 +19,7 @@
     "Bientôt en rupture": "Bientôt en rupture",
     "Arrêté": "Arrêté",
     "En promotion": "En promotion",
+    "Total products": "Total produits",
     "Id": "Id",
     "Label": "Libellé",
     "Stock": "Stock",

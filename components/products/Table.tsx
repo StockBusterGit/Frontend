@@ -83,7 +83,7 @@ export default function Table({ products }: TableProps ) {
                                 {openMenuId === product.id && (
                                     <div
                                         className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 shadow-md rounded-md z-50"
-                                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                                        onClick={(e) => e.stopPropagation()}
                                     >
                                         <button
                                             className="block w-full px-4 py-2 text-left hover:bg-gray-100 dark:text-black "

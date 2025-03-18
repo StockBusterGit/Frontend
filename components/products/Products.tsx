@@ -9,8 +9,8 @@ import { ProductProps } from "@/utils/Interface";
 
 export default function Products() {
     const [filter, setFilter] = useState({ searchText: "", orderBy: "", OutOfStock: false });
-    const [allProducts, setAllProducts] = useState<ProductProps[]>([]); // Stocke toutes les données
-    const [filteredData, setFilteredData] = useState<ProductProps[]>([]); // Données filtrées
+    const [allProducts, setAllProducts] = useState<ProductProps[]>([]);
+    const [filteredData, setFilteredData] = useState<ProductProps[]>([]); 
     const [loading, setLoading] = useState(true);
     const t = useTranslations('Components');
 
@@ -18,8 +18,8 @@ export default function Products() {
         const fetchProducts = async () => {
             try {
                 const data = await getProductsRequest();
-                setAllProducts(data); // On récupère toutes les données
-                setFilteredData(data); // Initialement, on affiche toutes les données
+                setAllProducts(data);
+                setFilteredData(data);
                 setLoading(false);
             } catch (error) {
                 console.error('Erreur lors de la récupération des produits:', error);

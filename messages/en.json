@@ -3,7 +3,7 @@
         "Loading": "Loading..."
     },
     "HomePage": {
-    "title": "Welcome"
+    "title": "Welcome to the Baguette!"
   },
   "Components": {
     "title": "Component",
@@ -30,6 +30,7 @@
     "Delete": "Delete",
     "Format": "Format",
     "Status": "Status",
+    "Total products": "Total products",
     "In stock": "In stock",
     "Out of stock": "Out of stock",
     "In order": "In order",
